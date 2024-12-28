@@ -48,6 +48,7 @@ class movableObject extends DrawableObject {
         if (this instanceof ThrowableObject) { // ThrowableObject should always fall
             return true;
         } else {
+            // console.log(this.y);
             return this.y < 165;
         }
     }

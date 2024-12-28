@@ -33,6 +33,7 @@ class World {
 
     run() {
         setInterval(() => {
+            console.log(this.character.y);
             if (this.keyboard.C) {
                 this.character.spendCoinsForEnergy();
                 this.coinBar.setCoinAmmount(this.character.coinsAmmount);
@@ -49,24 +50,24 @@ class World {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
             if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.speedY < 0) {
-                // this.character.jump();
                 if (enemy instanceof chicken || enemy instanceof Smallchicken) {
                     this.level.enemies[i].jumpDemage(enemy);
-                    this.character.jump();
+                    // this.character.jumpAgain(this.character.y);
+                    this.character.jump(); // nochmal drüber schauen! Y-wert des charakters ändert sich!
                 }
                 setTimeout(() => {
                     this.level.enemies.splice(i, 1);
                 }, 500);
-                return true; // Collision von oben erkannt, Funktion abbrechen
+                return true;
             }
         }
-        return false; // Keine Collision von oben erkannt
+        return false;
     }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.checkJumpCollision()) {
-                return; // Collision von oben erkannt, Funktion abbrechen
+                return;
             } else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);

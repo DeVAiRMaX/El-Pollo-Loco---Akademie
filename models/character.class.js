@@ -130,4 +130,11 @@ class Character extends movableObject {
     jump() {
         this.speedY = 25;
     }
+
+    jumpAgain(currentY) {
+        this.speedY = 25;
+        setTimeout(() => { 
+            this.y = currentY;
+        }, 1500);
+    }
 }
