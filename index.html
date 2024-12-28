@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Pollo Loco</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="start.css" />
+    <script src="./js/timer.js"></script>
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/drawable-object.class.js"></script>
+    <script src="./models/status-bar.class.js"></script>
+    <script src="./models/bottle-bar.class.js"></script>
+    <script src="./models/coin-bar.class.js"></script>
+    <script src="./models/boss-bar.class.js"></script>
+    <script src="./models/movable-object.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/chicken.class.js"></script>
+    <script src="./models/smallchicken.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
+    <script src="./models/clouds.class.js"></script>
+    <script src="./models/world.class.js"></script>
+    <script src="./models/background-object.class.js"></script>
+    <script src="./models/level.class.js"></script>
+    <script src="./models/coins.class.js"></script>
+    <script src="./models/bottle.class.js"></script>
+    <script src="./models/throwable-Object.class.js"></script>
+    <script src="./level/level1.js"></script>
+    <script src="./js/game.js"></script>
+  </head>
+  <body>
+    <!-- VictoryScreen -->
+    <div class="victoryscreen" id="victoryscreenpopupBackground">
+      <div class="victoryscreencontainer" id="victoryscreenpopupContainer">
+      <h2>Du hast gewonnen!</h2>
+      <button onclick="retry('victoryscreenpopupBackground', 'victoryscreenpopupContainer')">Nochmal Spielen!</button>
+      </div>
+      <img
+          src="icons8-cross-48.png"
+          alt=""
+          class="cross"
+          onclick="reloadPage()"
+        />
+    </div>
+    <!-- Deathscreen Ende-->
+
+    <!-- Deathscreen -->
+    <div class="deathscreen" id="deathscreenpopupBackground">
+      <div class="deathscreencontainer" id="deathscreenpopupContainer">
+      <h2>Du hast verloren!</h2>
+      <button onclick="retry('deathscreenpopupBackground', 'deathscreenpopupContainer')">Nochmal Spielen!</button>
+      </div>
+      <img
+          src="icons8-cross-48.png"
+          alt=""
+          class="cross"
+          onclick="reloadPage()"
+        />
+    </div>
+    <!-- Deathscreen Ende-->
+
+    <!-- Game -->
+    <div class="popup-background" id="gamesettingspopupBackground">
+      <div class="popup-container" id="gamepopupContainer">
+
+        <div id="app"></div>
+
+        <canvas id="canvas" width="720px" height="480px"> </canvas>
+        <img
+          src="icons8-cross-48.png"
+          alt=""
+          class="cross"
+          onclick="reloadPage()"
+        />
+      </div>
+    </div>
+    <!-- Game Ende -->
+
+    <!-- Settings -->
+    <div class="popup-background" id="settingspopupBackground">
+      <div class="popup-container" id="settingspopupContainer">
+        <img src="settings.png" alt="" />
+        <img
+          src="icons8-cross-48.png"
+          alt=""
+          class="cross"
+          onclick="closePopup('settingspopupBackground', 'settingspopupContainer')"
+        />
+      </div>
+    </div>
+    <!-- Settings Ende -->
+
+    <!-- Startscreen -->
+    <div class="startscreen">
+      <button
+        class="start-button"
+        onclick="openPopup('gamesettingspopupBackground', 'gamepopupContainer')"
+      >
+        Start
+      </button>
+      <button
+        class="settings-button"
+        onclick="openPopup('settingspopupBackground', 'settingspopupContainer')"
+      >
+        Settings
+      </button>
+
+      <img src="gba.gif" alt="" class="gba" />
+    </div>
+    <!-- Startscreen Ende -->
+
+  </body>
+</html>
