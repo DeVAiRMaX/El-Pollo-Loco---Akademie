@@ -34,7 +34,7 @@ class DrawableObject {
         if (this instanceof Character || this instanceof chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle || this instanceof Smallchicken) {
             ctx.beginPath();
             ctx.lineWidth = '3';
-            ctx.strokeStyle = 'rgba(255, 0, 0, 0.3)';
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0)';
             ctx.rect(
                 this.x + this.offset.left,
                 this.y + this.offset.top,

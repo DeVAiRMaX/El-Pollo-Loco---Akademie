@@ -20,10 +20,15 @@ class World {
         this.canvas = canvas;
         this.draw();
         this.setWorld();
+        this.run();
         this.checkCoinCollision();
         this.checkBottleCollision();
         this.checkBossCollision();
-        this.run();
+        this.checkJumpCollision();
+    }
+
+    setWorld() {
+        this.character.world = this;
     }
 
     run() {
@@ -34,34 +39,39 @@ class World {
                 this.statusBar.setPercentage(this.character.energy);
             }
             this.checkCollisions();
-            this.checkJumpCollision();
             if (this.keyboard.D) {
                 this.checkThrowObject();
             }
-        }, 200);
-    }
-
-    checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
-            }
-        });
+        }, 50);
     }
 
     checkJumpCollision() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
-            if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.isJumping &&this.character.speedY < 0) {
+            if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.speedY < 0) {
+                // this.character.jump();
                 if (enemy instanceof chicken || enemy instanceof Smallchicken) {
-                    console.log('chicken HIT');
-                    // this.handleCollisionsJumpAttack(i);
+                    this.level.enemies[i].jumpDemage(enemy);
+                    this.character.jump();
                 }
-                // this.deleteEnemyAfterJumpAttack(i)
-                break;
+                setTimeout(() => {
+                    this.level.enemies.splice(i, 1);
+                }, 500);
+                return true; // Collision von oben erkannt, Funktion abbrechen
             }
         }
+        return false; // Keine Collision von oben erkannt
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.checkJumpCollision()) {
+                return; // Collision von oben erkannt, Funktion abbrechen
+            } else if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        });
     }
 
     checkBossCollision() {
@@ -111,10 +121,6 @@ class World {
                 }
             });
         }, 200)
-    }
-
-    setWorld() {
-        this.character.world = this;
     }
 
     /**

@@ -3,7 +3,7 @@ class movableObject extends DrawableObject {
     speed = 0.15;
     otherDirectoin = false;
     speedY = 0;
-    acceleration = 2.2;
+    acceleration = 2.5;
     energy = 100;
     lastHit = 0;
     offset = {
@@ -13,7 +13,9 @@ class movableObject extends DrawableObject {
         bottom: 0
     };
 
-
+    jumpDemage(enemy) {
+        this.energy -= 100;
+    }
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
@@ -46,7 +48,7 @@ class movableObject extends DrawableObject {
         if (this instanceof ThrowableObject) { // ThrowableObject should always fall
             return true;
         } else {
-            return this.y < 170;
+            return this.y < 165;
         }
     }
 
@@ -71,6 +73,10 @@ class movableObject extends DrawableObject {
 
     moveLeft() {
         this.x -= this.speed;
+    }
+
+    stopmoving() {
+        this.speed = 0;
     }
 
 }

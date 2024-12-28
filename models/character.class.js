@@ -2,7 +2,7 @@ class Character extends movableObject {
     width = 155
     height = 250
     speed = 7
-    isJumping = true;
+    y = 175
 
 
     IMAGES_WALKING = [
@@ -128,15 +128,6 @@ class Character extends movableObject {
     }
 
     jump() {
-        this.speedY = 20;
+        this.speedY = 25;
     }
-
-    getBounds() {
-        return {
-          left: this.x,
-          right: this.x + this.width,
-          top: this.y,
-          bottom: this.y + this.height
-        };
-      }
 }

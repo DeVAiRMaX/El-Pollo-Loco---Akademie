@@ -33,7 +33,7 @@ class ThrowableObject extends movableObject {
         super.applyGravity();
         this.intervalId = setInterval(() => {
             this.playAnimation(this.IMAGES_FLYING);
-            this.x += 5;
+            this.x += 20;
             if (this.y >= 380) {
                 this.playAnimation(this.IMAGES_SPLASH);
                 clearInterval(this.intervalId); // clearInterval, um die Animation zu stoppen

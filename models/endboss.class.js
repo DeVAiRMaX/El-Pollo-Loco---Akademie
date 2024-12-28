@@ -62,12 +62,5 @@ class Endboss extends movableObject {
         closePopup('gamesettingspopupBackground', 'gamepopupContainer')
         openPopup('victoryscreenpopupBackground', 'victoryscreenpopupContainer');
     }
-    getBounds() {
-        return {
-          left: this.x,
-          right: this.x + this.width,
-          top: this.y,
-          bottom: this.y + this.height
-        };
-      }
+
 }
