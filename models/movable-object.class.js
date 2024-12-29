@@ -49,7 +49,7 @@ class movableObject extends DrawableObject {
             return true;
         } else {
             // console.log(this.y);
-            return this.y < 165;
+            return this.y < 175;
         }
     }
 

@@ -33,7 +33,7 @@ class World {
 
     run() {
         setInterval(() => {
-            console.log(this.character.y);
+            // console.log(this.character.y);
             if (this.keyboard.C) {
                 this.character.spendCoinsForEnergy();
                 this.coinBar.setCoinAmmount(this.character.coinsAmmount);
@@ -49,12 +49,12 @@ class World {
     checkJumpCollision() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
-            if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.speedY < 0) {
+            if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.isJumping && this.character.speedY < 0) {
                 if (enemy instanceof chicken || enemy instanceof Smallchicken) {
-                    this.level.enemies[i].jumpDemage(enemy);
-                    // this.character.jumpAgain(this.character.y);
-                    this.character.jump(); // nochmal drüber schauen! Y-wert des charakters ändert sich!
+                    // Sound
                 }
+                console.log(this.character.y);
+                this.collisionsJumpAttack(i, this.character.y);
                 setTimeout(() => {
                     this.level.enemies.splice(i, 1);
                 }, 500);
@@ -64,6 +64,11 @@ class World {
         return false;
     }
 
+    collisionsJumpAttack(index , characterY) {
+        this.level.enemies[index].jumpDemage(this.character);
+        this.level.enemies[index].isHurt();
+        this.character.jumpAgain(characterY);
+    }
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.checkJumpCollision()) {
