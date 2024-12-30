@@ -3,7 +3,7 @@ class movableObject extends DrawableObject {
     speed = 0.15;
     otherDirectoin = false;
     speedY = 0;
-    acceleration = 2.5;
+    acceleration = 2.0;
     energy = 100;
     lastHit = 0;
     offset = {
@@ -23,7 +23,14 @@ class movableObject extends DrawableObject {
         } else {
             this.lastHit = new Date().getTime(); //Speichern der aktuellen Zeit in Zahlenform
         }
-
+    }
+    bottleHit() {
+        this.energy -= 10;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime(); //Speichern der aktuellen Zeit in Zahlenform
+        }
     }
 
     isHurt() {
@@ -79,5 +86,21 @@ class movableObject extends DrawableObject {
     stopmoving() {
         this.speed = 0;
     }
+
+    endBossFight() {
+        this.x -= this.speed;
+        setInterval(() => {
+            this.jumpBossAttack();
+        }, 2000); // Every 2 seconds
+    }
+
+    jumpBossAttack() {
+        if (this.isInAboveGround()) {
+            this.isJumping = true;
+            this.speedY = 50; // Set a positive speedY to make the object jump
+            console.log(this.isJumping);
+        }
+    }
+
 
 }

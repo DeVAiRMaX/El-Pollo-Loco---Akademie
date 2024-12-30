@@ -4,10 +4,10 @@ function initLevel() {
 
     level1 = new Level(
         [
-            new chicken(850),
-            new Smallchicken(1200),
-            new chicken(1800),
-            new Smallchicken(1500),
+            // new chicken(850),
+            // new Smallchicken(1200),
+            // new chicken(1800),
+            // new Smallchicken(1500),
             new Endboss()
         ],
         [
@@ -32,7 +32,7 @@ function initLevel() {
             new Bottle('img/6_salsa_bottle/salsa_bottle.png', 1200, 350),
             new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 1450, 350),
             new Bottle('img/6_salsa_bottle/salsa_bottle.png', 450, 350),
-            new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 1720, 350)
+            new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 1720, 350),
         ],
         [
             new clouds(),

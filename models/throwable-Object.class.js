@@ -1,4 +1,6 @@
 class ThrowableObject extends movableObject {
+    bottles = [];
+
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_FLYING);
@@ -34,10 +36,11 @@ class ThrowableObject extends movableObject {
         this.intervalId = setInterval(() => {
             this.playAnimation(this.IMAGES_FLYING);
             this.x += 20;
-            if (this.y >= 380) {
+            if (this.y >= 340) {
                 this.playAnimation(this.IMAGES_SPLASH);
                 clearInterval(this.intervalId); // clearInterval, um die Animation zu stoppen
             }
-        }, 60);
+        }, 1000 / 20);
     }
+
 }

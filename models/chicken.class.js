@@ -30,7 +30,7 @@ class chicken extends movableObject {
         this.intervalChickenId = setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
             if (this.isDead()) {
-                clearInterval(this.intervalBossId); // Interval stoppen
+                clearInterval(this.intervalBossId);
                 this.playAnimation(this.IMAGES_DEAD);
                 this.stopmoving();
             }

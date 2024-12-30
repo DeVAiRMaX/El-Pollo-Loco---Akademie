@@ -23,8 +23,9 @@ class World {
         this.run();
         this.checkCoinCollision();
         this.checkBottleCollision();
-        this.checkBossCollision();
+        this.checkBossBottleCollision();
         this.checkJumpCollision();
+
     }
 
     setWorld() {
@@ -33,27 +34,40 @@ class World {
 
     run() {
         setInterval(() => {
-            // console.log(this.character.y);
+            if (this.keyboard.D) {
+                this.checkThrowObject();
+            }
             if (this.keyboard.C) {
                 this.character.spendCoinsForEnergy();
                 this.coinBar.setCoinAmmount(this.character.coinsAmmount);
                 this.statusBar.setPercentage(this.character.energy);
             }
+        }, 250);
+
+        setInterval(() => {
             this.checkCollisions();
-            if (this.keyboard.D) {
-                this.checkThrowObject();
-            }
+            this.checkCharakterEndbossFight();
         }, 50);
     }
 
+    checkCharakterEndbossFight() {
+        if (this.character.x >= 1500) {
+            this.level.enemies.forEach(endboss => {
+                if (endboss instanceof Endboss) {
+                    endboss.Endfight = true;
+                }
+            });
+        }
+    }
+
+    
     checkJumpCollision() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
             if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.isJumping && this.character.speedY < 0) {
                 if (enemy instanceof chicken || enemy instanceof Smallchicken) {
-                    // Sound
+                    //TODO: Sound einfügen
                 }
-                console.log(this.character.y);
                 this.collisionsJumpAttack(i, this.character.y);
                 setTimeout(() => {
                     this.level.enemies.splice(i, 1);
@@ -64,7 +78,7 @@ class World {
         return false;
     }
 
-    collisionsJumpAttack(index , characterY) {
+    collisionsJumpAttack(index, characterY) { // TODO : Y-Wert des Charakters verschiebt sich immer, wenn er auf ein chicken springt!
         this.level.enemies[index].jumpDemage(this.character);
         this.level.enemies[index].isHurt();
         this.character.jumpAgain(characterY);
@@ -80,16 +94,17 @@ class World {
         });
     }
 
-    checkBossCollision() {
+    checkBossBottleCollision() {
         setInterval(() => {
-            this.ThrowableObject.forEach((bottle) => {
+            this.ThrowableObject.forEach((bottle, bottleIndex) => {
                 this.level.enemies.forEach((endboss) => {
                     if (endboss.isColliding(bottle)) {
-                        endboss.hit(endboss.energy);
+                        endboss.bottleHit(endboss.energy);
                         this.bossBar.setBossPercentage(endboss.energy);
+                        this.ThrowableObject.splice(bottleIndex, 1);
                     }
-                })
-            })
+                });
+            });
         }, 200);
     }
 

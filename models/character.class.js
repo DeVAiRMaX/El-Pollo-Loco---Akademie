@@ -44,6 +44,7 @@ class Character extends movableObject {
     walking_audio = new Audio('audio/walking.mp3');
     jump_audio = new Audio('audio/jump.mp3');
     throw_audio = new Audio('audio/throw.mp3');
+    isJumping = true;
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -66,6 +67,10 @@ class Character extends movableObject {
     }
 
     animate() {
+        this.walking_audio.volume = 0.15;
+        this.jump_audio.volume = 0.25;
+        this.throw_audio.volume = 0.25;
+    
         setInterval(() => {
             this.walking_audio.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -73,22 +78,22 @@ class Character extends movableObject {
                 this.otherDirectoin = false;
                 this.walking_audio.play();
             }
-
+    
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.walking_audio.play();
                 this.otherDirectoin = true;
             }
-
+    
             if (this.world.keyboard.UP && !this.isInAboveGround()) {
                 this.jump();
                 this.jump_audio.play();
             }
-
+    
             if (this.world.keyboard.D) {
                 this.throw_audio.play();
             }
-
+    
             this.world.camera_x = -this.x + 75;
         }, 1000 / 40);
 
@@ -128,16 +133,18 @@ class Character extends movableObject {
     }
 
     jump() {
+        this.isJumping = true;
         this.speedY = 25;
         // console.log(this.y);
     }
 
     jumpAgain(characterY) {
+        this.isJumping = true;
         this.speedY = 25;
 
-        setTimeout(() => {
-            this.y = characterY * 0 + 175;
-        }, 1500);
+        // setTimeout(() => {
+        //     this.y = characterY * 0 + 175;
+        // }, 1500);
     }
 
 }
