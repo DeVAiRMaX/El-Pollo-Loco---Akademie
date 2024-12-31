@@ -140,6 +140,10 @@ class Character extends movableObject {
     setupAnimationInterval() {
         let afkTimer = 0;
         const afkThreshold = 10 * 1000;
+        setInterval(() => {
+            this.handleActiveAnimation();
+        }, 100);
+         // TODO: 
         this.intervalId = setInterval(() => {
             if (this.isDead()) {
                 this.charakterDie();
@@ -149,9 +153,9 @@ class Character extends movableObject {
                 this.handleAfkAnimation(afkTimer, afkThreshold);
             } else {
                 afkTimer = 0;
-                this.handleActiveAnimation();
+                
             }
-        }, 50);
+        }, 100);
     }
 
     handleAfkAnimation(afkTimer, afkThreshold) {
