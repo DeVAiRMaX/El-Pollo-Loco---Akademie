@@ -45,14 +45,7 @@ class World {
             this.checkCollisions();
             this.checkCoinCollision();
             this.checkJumpCollision();
-            this.checkCharakterDieing();
         }, 50);
-    }
-
-    checkCharakterDieing(){
-        if (this.character.energy == 0) {
-            this.character.charakterDie();
-        }
     }
 
     checkCharakterEndbossFight() {

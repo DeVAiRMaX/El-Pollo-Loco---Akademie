@@ -142,6 +142,9 @@ class Character extends movableObject {
         let afkTimer = 0;
         const afkThreshold = 10 * 1000;
         this.intervalId = setInterval(() => {
+            if (this.isDead()) {
+                this.charakterDie();
+            }
             if (!this.keyPressed) {
                 afkTimer += 50;
                 this.handleAfkAnimation(afkTimer, afkThreshold);
