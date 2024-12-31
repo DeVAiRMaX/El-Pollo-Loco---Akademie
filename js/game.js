@@ -34,13 +34,6 @@ function showLoseScreen() {
 }
 
 function retry(id, subid) {
-    if (world) {
-        console.log("Altes World-Objekt existiert:", world);
-        world = null;
-        console.log("Altes World-Objekt gelöscht:", world);
-    } else {
-        console.log("Kein altes World-Objekt existiert");
-    }
     initLevel();
     init();
     closePopup(id, subid)

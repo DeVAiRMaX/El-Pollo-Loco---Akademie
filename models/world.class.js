@@ -22,7 +22,9 @@ class World {
         this.setWorld();
         this.run();
         this.checkBottleCollision();
-        this.checkBossBottleCollision();        
+        this.checkBossBottleCollision();    
+        console.log(this.character);
+            
     }
 
     setWorld() {
