@@ -4,7 +4,30 @@ class Character extends movableObject {
     speed = 7
     y = 175
 
-
+    IMAGE_STAND = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+    IMAGE_SNORING = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png'
+    ];
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -47,12 +70,19 @@ class Character extends movableObject {
     isJumping = true;
 
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
 
+        this.loadImages(this.IMAGE_STAND);
+        this.loadImages(this.IMAGE_SNORING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+
+        this.keyPressed = false;
+        this.setupKeyboardListeners();
+
+        this.standAnimationCounter = 0;
 
         this.animate();
         this.offset = {
@@ -66,10 +96,30 @@ class Character extends movableObject {
 
     }
 
+    setupKeyboardListeners() {
+        window.addEventListener('keydown', () => {
+            this.keyPressed = true;
+        });
+
+        window.addEventListener('keyup', () => {
+            this.keyPressed = false;
+        });
+    }
+
     animate() {
-        this.walking_audio.volume = 0.15;
-        this.jump_audio.volume = 0.25;
-        this.throw_audio.volume = 0.25;
+        this.walking_audio.volume = 0.02;
+        this.jump_audio.volume = 0.1;
+        this.throw_audio.volume = 0.1;
+    
+        let afkTimer = 0;
+        const afkThreshold = 10 * 1000; // 10 seconds in milliseconds
+    
+        const resetAfkTimer = () => {
+            afkTimer = 0;
+        };
+    
+        window.addEventListener('keydown', resetAfkTimer);
+        window.addEventListener('keyup', resetAfkTimer);
     
         setInterval(() => {
             this.walking_audio.pause();
@@ -95,26 +145,45 @@ class Character extends movableObject {
             }
     
             this.world.camera_x = -this.x + 75;
-        }, 1000 / 40);
-
+        }, 1000 / 30);
+    
         this.intervalId = setInterval(() => {
-            if (this.isDead()) {
-                clearInterval(this.intervalId); // Interval stoppen
-                this.world.gameOver = true; // Spielablauf stoppen
-                this.world.draw(); // Letztes Mal das Spiel zeichnen
-                this.playAnimation(this.IMAGES_DEAD);
-                this.showDeathScreen();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            }
-            else if (this.isInAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+            if (!this.keyPressed) {
+                afkTimer += 50; // Increment AFK timer by the interval duration
+    
+                if (afkTimer >= afkThreshold) {
+                    this.standAnimationCounter++;
+                    if (this.standAnimationCounter % 4 === 0) {
+                        this.playAnimation(this.IMAGE_SNORING);
+                    }
+                } else {
+                    this.standAnimationCounter++;
+                    if (this.standAnimationCounter % 4 === 0) {
+                        this.playAnimation(this.IMAGE_STAND);
+                    }
+                }
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
+                afkTimer = 0; // Reset AFK timer if a key is pressed
+    
+                if (this.isDead()) {
+                    this.die();
+                    setInterval(() => {
+                        this.playAnimation(this.IMAGES_DEAD);
+                    }, 200);
+                    setTimeout(() => {
+                        this.showDeathScreen();
+                    }, 1500);
+                } else if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+                } else if (this.isInAboveGround()) {
+                    this.playAnimation(this.IMAGES_JUMPING);
+                } else {
+                    if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                        this.playAnimation(this.IMAGES_WALKING);
+                    }
                 }
             }
-        }, 50)
+        }, 50);
     }
 
     spendCoinsForEnergy() {
@@ -135,7 +204,34 @@ class Character extends movableObject {
     jump() {
         this.isJumping = true;
         this.speedY = 25;
-        // console.log(this.y);
+    }
+
+    die() {
+        // clearInterval(this.intervalId);
+    
+        this.isJumping = true;
+        this.speedY = 10;
+        const jumpDuration = 300;
+        const fallSpeed = 5;
+        const groundLevel = 600;
+    
+        setTimeout(() => {
+            this.isJumping = false;
+            this.speedY = 0;
+
+            const fallInterval = setInterval(() => {
+                if (this.y < groundLevel) {
+                    this.y += fallSpeed;
+                } else {
+                    clearInterval(fallInterval);
+                    this.showDeathScreen();
+                }
+            }, 1000 / 30);
+        }, jumpDuration);
+
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_DEAD);
+        }, 200);
     }
 
     jumpAgain(characterY) {

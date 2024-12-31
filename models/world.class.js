@@ -21,11 +21,9 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.checkCoinCollision();
+        
         this.checkBottleCollision();
-        this.checkBossBottleCollision();
-        this.checkJumpCollision();
-
+        this.checkBossBottleCollision();        
     }
 
     setWorld() {
@@ -46,27 +44,42 @@ class World {
 
         setInterval(() => {
             this.checkCollisions();
-            this.checkCharakterEndbossFight();
+            this.checkCoinCollision();
+            this.checkJumpCollision();
         }, 50);
     }
-
     checkCharakterEndbossFight() {
         if (this.character.x >= 1500) {
             this.level.enemies.forEach(endboss => {
                 if (endboss instanceof Endboss) {
                     endboss.Endfight = true;
+                } else {
+                    console.log('Du bist zu weit entfernt vom Boss!');
                 }
             });
         }
     }
+    // checkCharakterEndbossFight() {
+    //     if (this.character.x >= 1500) {
+    //         this.level.enemies.forEach(endboss => {
+    //             if (endboss instanceof Endboss) {
+    //                 endboss.Endfight = true;
+    //             }
+    //         });
+    //     }
+    // }
 
     
     checkJumpCollision() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
             if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.isJumping && this.character.speedY < 0) {
+                if (enemy instanceof Endboss) {
+                    // Skip damage logic for Endboss
+                    continue;
+                }
                 if (enemy instanceof chicken || enemy instanceof Smallchicken) {
-                    //TODO: Sound einfügen
+                    // TODO: Sound einfügen
                 }
                 this.collisionsJumpAttack(i, this.character.y);
                 setTimeout(() => {
@@ -102,6 +115,7 @@ class World {
                         endboss.bottleHit(endboss.energy);
                         this.bossBar.setBossPercentage(endboss.energy);
                         this.ThrowableObject.splice(bottleIndex, 1);
+                        this.checkCharakterEndbossFight();
                     }
                 });
             });
@@ -109,15 +123,16 @@ class World {
     }
 
     checkCoinCollision() {
-        setInterval(() => {
-            this.level.coin.forEach((coin) => {
-                if (this.character.isColliding(coin)) {
-                    this.character.coinsAmmount++;
-                    this.coinBar.setCoinAmmount(this.character.coinsAmmount);
-                    this.level.coin.splice(0, 1);
-                }
-            });
-        }, 200)
+        for (let i = 0; i < this.level.coin.length; i++) {
+            const coin = this.level.coin[i];
+                    if (this.character.isColliding(coin)) {
+                        this.character.coinsAmmount++;
+                        this.coinBar.setCoinAmmount(this.character.coinsAmmount);
+                        this.level.coin.splice(i, 1);
+                    }
+
+        }
+        
     }
 
     checkThrowObject() {

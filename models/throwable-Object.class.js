@@ -40,7 +40,7 @@ class ThrowableObject extends movableObject {
                 this.playAnimation(this.IMAGES_SPLASH);
                 clearInterval(this.intervalId); // clearInterval, um die Animation zu stoppen
             }
-        }, 1000 / 20);
+        }, 1000 / 10);
     }
 
 }

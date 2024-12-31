@@ -70,8 +70,10 @@ class Endboss extends movableObject {
     animate() {
         this.intervalBossId = setInterval(() => {
             if (this.isDead()) {
-                clearInterval(this.intervalBossId); // Interval stoppen
+                clearInterval(this.intervalBossId);
+                setInterval(() => { // Interval stoppen
                 this.playAnimation(this.IMAGES_DEAD);
+            }, 1000 / 10);
                 setTimeout(() => {
                     this.showVictoryScreen();
                 }, 1000);
