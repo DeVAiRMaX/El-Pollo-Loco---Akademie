@@ -21,7 +21,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        
         this.checkBottleCollision();
         this.checkBossBottleCollision();        
     }
@@ -46,15 +45,21 @@ class World {
             this.checkCollisions();
             this.checkCoinCollision();
             this.checkJumpCollision();
+            this.checkCharakterDieing();
         }, 50);
     }
+
+    checkCharakterDieing(){
+        if (this.character.energy == 0) {
+            this.character.charakterDie();
+        }
+    }
+
     checkCharakterEndbossFight() {
         if (this.character.x >= 1500) {
             this.level.enemies.forEach(endboss => {
                 if (endboss instanceof Endboss) {
                     endboss.Endfight = true;
-                } else {
-                    console.log('Du bist zu weit entfernt vom Boss!');
                 }
             });
         }

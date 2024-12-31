@@ -42,6 +42,7 @@ class Endboss extends movableObject {
     ];
     Endfight = false;
     isJumping = false;
+    dead = false;
 
 
     constructor() {
@@ -70,13 +71,8 @@ class Endboss extends movableObject {
     animate() {
         this.intervalBossId = setInterval(() => {
             if (this.isDead()) {
-                clearInterval(this.intervalBossId);
-                setInterval(() => { // Interval stoppen
-                this.playAnimation(this.IMAGES_DEAD);
-            }, 1000 / 10);
-                setTimeout(() => {
-                    this.showVictoryScreen();
-                }, 1000);
+                this.dead = true;
+                this.endbossDie();
             } else if (this.isHurt()) {
                 this.Endfight = false;
                 this.playAnimation(this.IMAGES_HURT);
@@ -92,10 +88,14 @@ class Endboss extends movableObject {
         }, 1000 / 5);
     }
 
-    showVictoryScreen() {
-        document.getElementById('canvas').style.display = 'none';
-        closePopup('gamesettingspopupBackground', 'gamepopupContainer')
-        openPopup('victoryscreenpopupBackground', 'victoryscreenpopupContainer');
+    endbossDie() {
+        if (this.dead == true)
+            setInterval(() => {
+                this.playAnimation(this.IMAGES_DEAD);
+            }, 1000 / 10);
+        setTimeout(() => {
+            showVictoryScreen();
+        }, 1000);
     }
 
     startMoving() {

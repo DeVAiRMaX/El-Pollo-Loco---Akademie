@@ -2,7 +2,6 @@ class Character extends movableObject {
     width = 155
     height = 250
     speed = 7
-    y = 175
 
     IMAGE_STAND = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -61,6 +60,7 @@ class Character extends movableObject {
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ];
+    y = 190
     world;
     coinsAmmount = 0;
     BottlesAmmount = 0;
@@ -68,10 +68,11 @@ class Character extends movableObject {
     jump_audio = new Audio('audio/jump.mp3');
     throw_audio = new Audio('audio/throw.mp3');
     isJumping = true;
+    dead = false;
+    groundLevel = 70;
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
-
         this.loadImages(this.IMAGE_STAND);
         this.loadImages(this.IMAGE_SNORING);
         this.loadImages(this.IMAGES_JUMPING);
@@ -81,46 +82,39 @@ class Character extends movableObject {
 
         this.keyPressed = false;
         this.setupKeyboardListeners();
-
-        this.standAnimationCounter = 0;
-
+        this.individualCounter = 0;
         this.animate();
-        this.offset = {
-            left: 32,
-            right: 32,
-            top: 90,
-            bottom: 15
-        };
-
+        this.offset = { left: 32, right: 32, top: 90, bottom: 15 };
         this.applyGravity();
-
     }
 
     setupKeyboardListeners() {
-        window.addEventListener('keydown', () => {
-            this.keyPressed = true;
-        });
-
-        window.addEventListener('keyup', () => {
-            this.keyPressed = false;
-        });
+        window.addEventListener('keydown', () => this.keyPressed = true);
+        window.addEventListener('keyup', () => this.keyPressed = false);
     }
 
     animate() {
+        this.setAudioVolumes();
+        this.setupAfkTimer();
+        this.setupMovementInterval();
+        this.setupAnimationInterval();
+    }
+
+    setAudioVolumes() {
         this.walking_audio.volume = 0.02;
         this.jump_audio.volume = 0.1;
         this.throw_audio.volume = 0.1;
-    
+    }
+
+    setupAfkTimer() {
         let afkTimer = 0;
-        const afkThreshold = 10 * 1000; // 10 seconds in milliseconds
-    
-        const resetAfkTimer = () => {
-            afkTimer = 0;
-        };
-    
+        const afkThreshold = 10 * 1000;
+        const resetAfkTimer = () => afkTimer = 0;
         window.addEventListener('keydown', resetAfkTimer);
         window.addEventListener('keyup', resetAfkTimer);
-    
+    }
+
+    setupMovementInterval() {
         setInterval(() => {
             this.walking_audio.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -128,62 +122,57 @@ class Character extends movableObject {
                 this.otherDirectoin = false;
                 this.walking_audio.play();
             }
-    
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.walking_audio.play();
                 this.otherDirectoin = true;
             }
-    
             if (this.world.keyboard.UP && !this.isInAboveGround()) {
                 this.jump();
                 this.jump_audio.play();
             }
-    
             if (this.world.keyboard.D) {
                 this.throw_audio.play();
             }
-    
             this.world.camera_x = -this.x + 75;
         }, 1000 / 30);
-    
+    }
+
+    setupAnimationInterval() {
+        let afkTimer = 0;
+        const afkThreshold = 10 * 1000;
         this.intervalId = setInterval(() => {
             if (!this.keyPressed) {
-                afkTimer += 50; // Increment AFK timer by the interval duration
-    
-                if (afkTimer >= afkThreshold) {
-                    this.standAnimationCounter++;
-                    if (this.standAnimationCounter % 4 === 0) {
-                        this.playAnimation(this.IMAGE_SNORING);
-                    }
-                } else {
-                    this.standAnimationCounter++;
-                    if (this.standAnimationCounter % 4 === 0) {
-                        this.playAnimation(this.IMAGE_STAND);
-                    }
-                }
+                afkTimer += 50;
+                this.handleAfkAnimation(afkTimer, afkThreshold);
             } else {
-                afkTimer = 0; // Reset AFK timer if a key is pressed
-    
-                if (this.isDead()) {
-                    this.die();
-                    setInterval(() => {
-                        this.playAnimation(this.IMAGES_DEAD);
-                    }, 200);
-                    setTimeout(() => {
-                        this.showDeathScreen();
-                    }, 1500);
-                } else if (this.isHurt()) {
-                    this.playAnimation(this.IMAGES_HURT);
-                } else if (this.isInAboveGround()) {
-                    this.playAnimation(this.IMAGES_JUMPING);
-                } else {
-                    if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                        this.playAnimation(this.IMAGES_WALKING);
-                    }
-                }
+                afkTimer = 0;
+                this.handleActiveAnimation();
             }
         }, 50);
+    }
+
+    handleAfkAnimation(afkTimer, afkThreshold) {
+        this.individualCounter++;
+        if (afkTimer >= afkThreshold) {
+            if (this.individualCounter % 4 === 0) {
+                this.playAnimation(this.IMAGE_SNORING);
+            }
+        } else {
+            if (this.individualCounter % 4 === 0) {
+                this.playAnimation(this.IMAGE_STAND);
+            }
+        }
+    }
+
+    handleActiveAnimation() {
+        if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isInAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
     }
 
     spendCoinsForEnergy() {
@@ -206,41 +195,63 @@ class Character extends movableObject {
         this.speedY = 25;
     }
 
-    die() {
-        // clearInterval(this.intervalId);
-    
+    charakterDie() {
+        this.initiateDeathJump();
+        this.animateDeath();
+    }
+
+    initiateDeathJump() {
         this.isJumping = true;
         this.speedY = 10;
-        const jumpDuration = 300;
-        const fallSpeed = 5;
-        const groundLevel = 600;
-    
+        const jumpDuration = 250;
+
         setTimeout(() => {
             this.isJumping = false;
             this.speedY = 0;
-
-            const fallInterval = setInterval(() => {
-                if (this.y < groundLevel) {
-                    this.y += fallSpeed;
-                } else {
-                    clearInterval(fallInterval);
-                    this.showDeathScreen();
-                }
-            }, 1000 / 30);
+            this.fallToGround();
         }, jumpDuration);
+    }
 
+    fallToGround() {
+        const fallSpeed = 5;
+        const groundLevel = 600;
+
+        const fallInterval = setInterval(() => {
+            if (this.y < groundLevel) {
+                this.y += fallSpeed;
+            } else {
+                clearInterval(fallInterval);
+                this.triggerDeathScreen();
+            }
+        }, 1000 / 30);
+    }
+
+    triggerDeathScreen() {
+        setTimeout(() => {
+            showLoseScreen();
+        }, 300);
+    }
+
+    animateDeath() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_DEAD);
         }, 200);
     }
+    
 
-    jumpAgain(characterY) {
+    jumpAgain() {
         this.isJumping = true;
-        this.speedY = 25;
+        this.speedY = 20;
 
-        // setTimeout(() => {
-        //     this.y = characterY * 0 + 175;
-        // }, 1500);
+        const fallInterval = setInterval(() => {
+            if (this.y < this.groundLevel) {
+                this.y += this.speedY;
+            } else {
+                this.y = this.groundLevel;
+                clearInterval(fallInterval);
+                this.isJumping = false;
+            }
+        }, 1000 / 30);
     }
 
 }

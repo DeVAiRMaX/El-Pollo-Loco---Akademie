@@ -98,7 +98,6 @@ class movableObject extends DrawableObject {
         if (this.isInAboveGround()) {
             this.isJumping = true;
             this.speedY = 50; // Set a positive speedY to make the object jump
-            console.log(this.isJumping);
         }
     }
 

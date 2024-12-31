@@ -1,10 +1,34 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let gameStatus
 
 function init() {
+    gameStatus = 'playing';
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+}
+
+function ClearAllInterVals() {
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+}
+
+function showVictoryScreen() {
+    ClearAllInterVals(); // TODO: VictoryScreen anzeigen lassen.
+    gameStatus = 'win';
+    document.getElementById('canvas').style.display = 'none';
+    closePopup('gamesettingspopupBackground', 'gamepopupContainer')
+    openPopup('victoryscreenpopupBackground', 'victoryscreenpopupContainer');
+}
+
+function showLoseScreen() {
+    ClearAllInterVals(); // TODO: LoseScreen anzeigen lassen.
+    gameStatus = 'lose';
+    document.getElementById('canvas').style.display = 'none';
+    closePopup('gamesettingspopupBackground', 'gamepopupContainer')
+    openPopup('deathscreenpopupBackground', 'deathscreenpopupContainer');
 }
 
 function retry(id, subid) {
@@ -15,13 +39,13 @@ function retry(id, subid) {
     } else {
         console.log("Kein altes World-Objekt existiert");
     }
-
-    initLevel();
     init();
     closePopup(id, subid)
     openPopup('gamesettingspopupBackground', 'gamepopupContainer');
     document.getElementById("canvas").style.display = "block";
 }
+
+
 
 window.addEventListener("keydown", (key) => {
     if (key.keyCode == 67) {
