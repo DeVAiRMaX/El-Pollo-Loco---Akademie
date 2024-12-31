@@ -21,6 +21,7 @@ function showVictoryScreen() {
     document.getElementById('canvas').style.display = 'none';
     closePopup('gamesettingspopupBackground', 'gamepopupContainer')
     openPopup('victoryscreenpopupBackground', 'victoryscreenpopupContainer');
+    world = null; // Clear the world object
 }
 
 function showLoseScreen() {
@@ -29,6 +30,7 @@ function showLoseScreen() {
     document.getElementById('canvas').style.display = 'none';
     closePopup('gamesettingspopupBackground', 'gamepopupContainer')
     openPopup('deathscreenpopupBackground', 'deathscreenpopupContainer');
+    world = null; // Clear the world object
 }
 
 function retry(id, subid) {
@@ -39,6 +41,7 @@ function retry(id, subid) {
     } else {
         console.log("Kein altes World-Objekt existiert");
     }
+    initLevel();
     init();
     closePopup(id, subid)
     openPopup('gamesettingspopupBackground', 'gamepopupContainer');

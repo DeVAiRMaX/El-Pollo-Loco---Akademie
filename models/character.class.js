@@ -68,7 +68,6 @@ class Character extends movableObject {
     jump_audio = new Audio('audio/jump.mp3');
     throw_audio = new Audio('audio/throw.mp3');
     isJumping = true;
-    dead = false;
     groundLevel = 70;
 
     constructor() {
