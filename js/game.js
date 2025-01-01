@@ -43,7 +43,52 @@ function retry() {
     document.getElementById("canvas").style.display = "block";
 }
 
+window.addEventListener("touchstart", (event) => {
+    if (event.target.id === 'mobileRightButton') {
+        event.preventDefault();
+        keyboard.RIGHT = true;
+    }
+    if (event.target.id === 'mobileLeftButton') {
+        event.preventDefault();
+        keyboard.LEFT = true;
+    }
+    if (event.target.id === 'mobileUpButton') {
+        event.preventDefault();
+        keyboard.UP = true;
+    }
+    if (event.target.id === 'mobileThrowButton') {
+        event.preventDefault();
+        keyboard.D = true;
+    }
+    if (event.target.id === 'mobileHealButton') {
+        event.preventDefault();
+        keyboard.C = true;
+    }
+});
 
+
+window.addEventListener("touchend", (event) => {
+    if (event.target.id === 'mobileRightButton') {
+        event.preventDefault();
+        keyboard.RIGHT = false;
+    }
+    if (event.target.id === 'mobileLeftButton') {
+        event.preventDefault();
+        keyboard.LEFT = false;
+    }
+    if (event.target.id === 'mobileUpButton') {
+        event.preventDefault();
+        keyboard.UP = false;
+    }
+    if (event.target.id === 'mobileThrowButton') {
+        event.preventDefault();
+        keyboard.D = false;
+    }
+    if (event.target.id === 'mobileHealButton') {
+        event.preventDefault();
+        keyboard.C = false;
+    }
+});
 
 window.addEventListener("keydown", (key) => {
     if (key.keyCode == 67) {
@@ -169,7 +214,6 @@ function closeMobileSettings() {
     document.getElementById('mobileSettings').style.display = "none";
     gameSetting = false;
 }
-
 
 function reloadPage() {
     location.reload();

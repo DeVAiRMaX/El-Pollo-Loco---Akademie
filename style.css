@@ -199,7 +199,6 @@ canvas {
       transform: rotate(90deg);
     }
   }
-
   .gba-Screen {
     position: unset;
   }
@@ -215,6 +214,9 @@ canvas {
 }
 
 @media only screen and (max-height: 480px) {
+  .rotateScreen {
+    display: none;
+  }
   .mobile-healbutton {
     display: flex;
     align-items: center;
