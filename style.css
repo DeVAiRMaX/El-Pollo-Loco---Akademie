@@ -129,19 +129,76 @@ canvas {
   cursor: pointer;
 }
 
-.fullscreen {
-  width: 80px;
+.reloadButton {
   display: none;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: fixed;
+  top: 8px;
+  left: 93px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.reloadButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.reloadButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.reloadButton::before {
+  content: "\f021"; /* Font Awesome redo icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 26px;
+  color: white;
+}
+
+.fullscreenButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: fixed;
   top: 8px;
   left: 16px;
   cursor: pointer;
-  opacity: 0.5;
   transition: 0.4s;
 }
 
-.fullscreen:hover {
-  opacity: 1;
+.fullscreenButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fullscreenButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fullscreenButton::before {
+  content: "\f065"; /* Font Awesome expand-arrows-alt icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 26px;
+  color: white;
 }
 
 .rotateScreen {

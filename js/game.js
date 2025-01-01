@@ -38,11 +38,18 @@ function showLoseScreen() {
 }
 
 function retry() {
+    if (world !== null) {
+        world = null;
+        ClearAllInterVals();
+        console.log('genullt'); // TODO: Welt richtig leeren!!
+    }
+    document.getElementById('victoryscreen').style.display = 'none';
+    document.getElementById('deathscreen').style.display = 'none';
+    document.getElementById("canvas").style.display = "block";
     initLevel();
     init();
-    document.getElementById("canvas").style.display = "block";
 }
- // TODO: afk-timer läuft trotzdem bewegung weiter!
+// TODO: afk-timer läuft trotzdem bewegung weiter!
 window.addEventListener("touchstart", (event) => {
     if (event.target.id === 'mobileRightButton') {
         event.preventDefault();
@@ -146,7 +153,8 @@ function startGame() {
     gameStatus = true;
     document.getElementById('gbaScreen').style.display = "flex";
     document.getElementById('canvas').style.display = "block";
-    document.getElementById('fullscreenicon').style.display = "block";
+    document.getElementById('fullscreenicon').style.display = "flex";
+    document.getElementById('reloadButton').style.display = "flex";
     initLevel();
     init();
 }
