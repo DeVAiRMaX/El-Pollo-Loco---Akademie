@@ -6,7 +6,6 @@
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="start.css" />
-    <script src="./js/timer.js"></script>
     <script src="./models/keyboard.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/status-bar.class.js"></script>
@@ -26,81 +25,125 @@
     <script src="./models/bottle.class.js"></script>
     <script src="./models/throwable-Object.class.js"></script>
     <script src="./level/level1.js"></script>
+    <!-- <script src="./js/htmltemplate.js"></script> -->
+    <!-- <script src="./js/timer.js"></script> -->
     <script src="./js/game.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
   <body>
-    <!-- VictoryScreen -->
-    <div class="victoryscreen" id="victoryscreenpopupBackground">
-      <div class="victoryscreencontainer" id="victoryscreenpopupContainer">
-        <h2>Du hast gewonnen!</h2>
+    <img
+      class="fullscreen"
+      id="fullscreenicon"
+      src="./img/fullscreen.png"
+      alt=""
+      onclick="makeFullscreen()"
+    />
+
+    <div class="mobile-button-container" id="mobileButtonContainer">
+      <div>
+        <button onclick="" class="mobile-leftbutton"></button>
         <button
-          onclick="retry('victoryscreenpopupBackground', 'victoryscreenpopupContainer')"
-        >
-          Nochmal Spielen!
-        </button>
+          onclick=""
+          class="mobile-rightbutton"
+        ></button>
       </div>
-      <img src="./img/cross.png" alt="" class="cross" onclick="reloadPage()" />
-    </div>
-    <!-- Deathscreen Ende-->
-
-    <!-- Deathscreen -->
-    <div class="deathscreen" id="deathscreenpopupBackground">
-      <div class="deathscreencontainer" id="deathscreenpopupContainer">
-        <h2>Du hast verloren!</h2>
+      <div>
         <button
-          onclick="retry('deathscreenpopupBackground', 'deathscreenpopupContainer')"
-        >
-          Nochmal Spielen!
-        </button>
+          onclick=""
+          class="mobile-upbutton"
+        ></button>
+        <button
+          onclick=""
+          class="mobile-throwbutton"
+        ></button>
+        <button
+          onclick=""
+          class="mobile-healbutton"
+        ></button>
       </div>
-      <img src="./img/cross.png" alt="" class="cross" onclick="reloadPage()" />
     </div>
-    <!-- Deathscreen Ende-->
 
-    <!-- Game -->
-    <div class="popup-background" id="gamesettingspopupBackground">
-      <div class="popup-container" id="gamepopupContainer">
-        <div id="app"></div>
+    <!-- Mobile -->
+    <div class="rotateScreen">
+      <h2>Please turn your phone!</h2>
+      <img class="rotated-phone" src="./img/smartphone.png" alt="">
+      
 
-        <canvas id="canvas" width="720px" height="480px"> </canvas>
+    </div>
+    <div class="mobile-Startscreen">
+      <div id="mobileSettings" class="mobile-settings">
+        <img src="./img/settings.gif" alt="" />
         <img
           src="./img/cross.png"
           alt=""
-          class="cross"
-          onclick="reloadPage()"
+          class="mobile-closecross"
+          onclick="closeMobileSettings()"
         />
       </div>
-    </div>
-    <!-- Game Ende -->
-
-    <!-- Settings -->
-    <div class="popup-background" id="settingspopupBackground">
-      <div class="popup-container" id="settingspopupContainer">
-        <img src="./img/settings.png" alt="" />
-        <img
-          src="./img/cross.png"
-          alt=""
-          class="cross"
-          onclick="closePopup('settingspopupBackground', 'settingspopupContainer')"
-        />
+      <div class="mobile-buttons">
+        <button onclick="startMobileGame()" class="mobile-startbutton"></button>
+        <button
+          onclick="mobileGameSettings()"
+          class="mobile-settingsbutton"
+        ></button>
       </div>
+      <img class="mobilescreen" src="./img/startscreen.gif" alt="" />
     </div>
-    <!-- Settings Ende -->
+    <!-- Mobile Ende -->
 
     <!-- Startscreen -->
     <div class="startscreen">
-      <button
-        class="start-button"
-        onclick="openPopup('gamesettingspopupBackground', 'gamepopupContainer')"
-      >
-        Start
-      </button>
-      <button
-        class="settings-button"
-        onclick="openPopup('settingspopupBackground', 'settingspopupContainer')"
-      >
-        Settings
-      </button>
+      <div class="gba-Screen" id="gbaScreen">
+        <div class="deathscreen" id="deathscreen">
+          <img
+            src="./img/cross.png"
+            alt=""
+            class="mobile-closecross"
+            onclick="reloadPage()"
+          />
+          <img
+            src="./img/cross.png"
+            alt=""
+            class="cross"
+            onclick="reloadPage()"
+          />
+          <img class="deathimage" src="./img/losescreen.jpg" alt="" />
+        </div>
+
+        <div class="victoryscreen" id="victoryscreen">
+          <img
+            src="./img/cross.png"
+            alt=""
+            class="mobile-closecross"
+            onclick="reloadPage()"
+          />
+          <img
+            src="./img/cross.png"
+            alt=""
+            class="cross"
+            onclick="reloadPage()"
+          />
+          <img class="victoryimage" src="./img/winscreen.jpg" alt="" />
+        </div>
+
+        <canvas id="canvas" width="720px" height="480px"></canvas>
+        <div class="settings" id="settings">
+          <img
+            src="./img/cross.png"
+            alt=""
+            class="closecross"
+            onclick="closeSettings()"
+          />
+          <img src="./img/settings.gif" alt="" />
+          <!-- <button onclick="closeSettings()">close</button> -->
+        </div>
+      </div>
+
+      <button class="start-button" onclick="startGame()">Start</button>
+      <button class="settings-button" onclick="gameSettings()">Settings</button>
 
       <img src="./img/gba.gif" alt="" class="gba" />
     </div>

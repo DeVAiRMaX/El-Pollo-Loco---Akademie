@@ -27,27 +27,7 @@ let remainingPathColor = COLOR_CODES.info.color;
 document.addEventListener("DOMContentLoaded", function () {
     const appElement = document.getElementById("app");
     if (appElement) {
-        appElement.innerHTML = `
-    <div class="base-timer" id="base-timer">
-    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <g class="base-timer__circle">
-        <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-        <path
-          id="base-timer-path-remaining"
-          stroke-dasharray="283"
-          class="base-timer__path-remaining ${remainingPathColor}"
-          d="
-            M 50, 50
-            m -45, 0
-            a 45,45 0 1,0 90,0
-            a 45,45 0 1,0 -90,0
-          "
-        ></path>
-      </g>
-    </svg>
-    <label id="base-timer-label" class="base-timer__label"><p style="font-size: 19px;">Mach Dich bereit!</p></label>
-  </div>
-    `;
+        appElement.innerHTML = timerHTML();
     } else {
         console.error("Element mit der ID 'app' nicht gefunden.");
     }

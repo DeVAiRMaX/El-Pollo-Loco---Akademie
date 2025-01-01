@@ -22,7 +22,7 @@ class World {
         this.setWorld();
         this.run();
         this.checkBottleCollision();
-        this.checkBossBottleCollision();                
+        this.checkBossBottleCollision();
     }
 
     setWorld() {
@@ -30,22 +30,25 @@ class World {
     }
 
     run() {
-        setInterval(() => {
-            if (this.keyboard.D) {
-                this.checkThrowObject();
-            }
-            if (this.keyboard.C) {
-                this.character.spendCoinsForEnergy();
-                this.coinBar.setCoinAmmount(this.character.coinsAmmount);
-                this.statusBar.setPercentage(this.character.energy);
-            }
-        }, 250);
+        setInterval(() => this.handleKeyboardActions(), 250);
+        setInterval(() => this.handleCollisions(), 50);
+    }
 
-        setInterval(() => {
-            this.checkCollisions();
-            this.checkCoinCollision();
-            this.checkJumpCollision();
-        }, 50);
+    handleKeyboardActions() {
+        if (this.keyboard.D) {
+            this.checkThrowObject();
+        }
+        if (this.keyboard.C) {
+            this.character.spendCoinsForEnergy();
+            this.coinBar.setCoinAmmount(this.character.coinsAmmount);
+            this.statusBar.setPercentage(this.character.energy);
+        }
+    }
+
+    handleCollisions() {
+        this.checkCollisions();
+        this.checkCoinCollision();
+        this.checkJumpCollision();
     }
 
     checkCharakterEndbossFight() {
@@ -57,43 +60,42 @@ class World {
             });
         }
     }
-    // checkCharakterEndbossFight() {
-    //     if (this.character.x >= 1500) {
-    //         this.level.enemies.forEach(endboss => {
-    //             if (endboss instanceof Endboss) {
-    //                 endboss.Endfight = true;
-    //             }
-    //         });
-    //     }
-    // }
 
-    
     checkJumpCollision() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let enemy = this.level.enemies[i];
-            if (this.character.isColliding(enemy) && this.character.isInAboveGround() && this.character.isJumping && this.character.speedY < 0) {
-                if (enemy instanceof Endboss) {
-                    // Skip damage logic for Endboss
-                    continue;
-                }
-                if (enemy instanceof chicken || enemy instanceof Smallchicken) {
-                    // TODO: Sound einfügen
-                }
-                this.collisionsJumpAttack(i, this.character.y);
-                setTimeout(() => {
-                    this.level.enemies.splice(i, 1);
-                }, 500);
+            if (this.isCharacterJumpingOnEnemy(enemy)) {
+                this.handleJumpOnEnemy(i, enemy);
                 return true;
             }
         }
         return false;
     }
 
-    collisionsJumpAttack(index, characterY) { // TODO : Y-Wert des Charakters verschiebt sich immer, wenn er auf ein chicken springt!
+    isCharacterJumpingOnEnemy(enemy) {
+        return this.character.isColliding(enemy) &&
+            this.character.isInAboveGround() &&
+            this.character.isJumping &&
+            this.character.speedY < 0;
+    }
+
+    handleJumpOnEnemy(index, enemy) {
+        if (enemy instanceof Endboss) return;
+        if (enemy instanceof chicken || enemy instanceof Smallchicken) {
+            // TODO: Sound einfügen
+        }
+        this.collisionsJumpAttack(index, this.character.y);
+        setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+        }, 500);
+    }
+
+    collisionsJumpAttack(index, characterY) {
         this.level.enemies[index].jumpDemage(this.character);
         this.level.enemies[index].isHurt();
         this.character.jumpAgain(characterY);
     }
+
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.checkJumpCollision()) {
@@ -123,14 +125,14 @@ class World {
     checkCoinCollision() {
         for (let i = 0; i < this.level.coin.length; i++) {
             const coin = this.level.coin[i];
-                    if (this.character.isColliding(coin)) {
-                        this.character.coinsAmmount++;
-                        this.coinBar.setCoinAmmount(this.character.coinsAmmount);
-                        this.level.coin.splice(i, 1);
-                    }
+            if (this.character.isColliding(coin)) {
+                this.character.coinsAmmount++;
+                this.coinBar.setCoinAmmount(this.character.coinsAmmount);
+                this.level.coin.splice(i, 1);
+            }
 
         }
-        
+
     }
 
     checkThrowObject() {
@@ -151,76 +153,69 @@ class World {
                 if (this.character.isColliding(bottle)) {
                     this.character.BottlesAmmount++;
                     this.bottleBar.setBottleAmmount(this.character.BottlesAmmount);
-                    this.level.bottle.splice(this.level.bottle.indexOf(bottle), 1); // entferne die Flasche aus dem Array
+                    this.level.bottle.splice(this.level.bottle.indexOf(bottle), 1);
                 }
             });
         }, 200)
     }
 
-    /**
-     * Draws the current state of the game on the canvas.
-     * Clears the canvas, then draws the character, enemies, clouds and backgrounds in that order.
-     * At the end, it schedules itself to be called again with the next animation frame.
-     */
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+        this.clearCanvas();
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.level.backgroundobjects);
-        this.addToMap(this.character);
+        this.drawBackground();
+        this.drawGameObjects();
 
+        this.ctx.translate(-this.camera_x, 0);
+        this.drawStatusBars();
+
+        this.requestNextFrame();
+    }
+
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    drawBackground() {
+        this.addObjectsToMap(this.level.backgroundobjects);
+    }
+
+    drawGameObjects() {
+        this.addToMap(this.character);
         this.addObjectsToMap(this.ThrowableObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.bottle);
         this.addObjectsToMap(this.level.clouds);
+    }
 
-        this.ctx.translate(-this.camera_x, 0);  //Back
-        // Space for fixxed Objects //
+    drawStatusBars() {
         this.addToMap(this.statusBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bossBar);
-        this.ctx.translate(this.camera_x, 0);  //Forwards
+    }
 
-        this.ctx.translate(-this.camera_x, 0);
-
+    requestNextFrame() {
         let updatesDrawMethod = this;
         requestAnimationFrame(function () {
             updatesDrawMethod.draw();
         });
     }
 
-    /**
-     * Adds multiple objects to the map by drawing each object on the canvas.
-     * Iterates through the provided array of objects and calls addToMap for each.
-     * 
-     * @param {Array} objects - An array of objects to be added to the map.
-     */
+
     addObjectsToMap(objects) {
         objects.forEach(element => {
             this.addToMap(element);
         });
     }
 
-
-    /**
-     * Draws the movableObject on the canvas at its current position.
-     * If the movableObject has the property otherDirectoin set to true, it will be drawn mirrored horizontally.
-     * @param {movableObject} movableObject - The movableObject to draw.
-     */
     addToMap(movableObject) {
         if (movableObject.otherDirectoin) {
             this.flipImage(movableObject);
-
         }
         movableObject.draw(this.ctx);
-        // this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
-
-
         movableObject.drawFrame(this.ctx);
-
         if (movableObject.otherDirectoin) {
             this.flipImageBack(movableObject);
         }

@@ -1,7 +1,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let gameStatus
+let gameStatus = false;
+let gameSetting = false;
+let gameFinish = false;
 
 function init() {
     gameStatus = 'playing';
@@ -16,28 +18,28 @@ function ClearAllInterVals() {
 }
 
 function showVictoryScreen() {
-    ClearAllInterVals(); // TODO: VictoryScreen anzeigen lassen.
-    gameStatus = 'win';
+    ClearAllInterVals();
+    gameFinish = true;
+    world = null;
     document.getElementById('canvas').style.display = 'none';
-    closePopup('gamesettingspopupBackground', 'gamepopupContainer')
-    openPopup('victoryscreenpopupBackground', 'victoryscreenpopupContainer');
-    world = null; // Clear the world object
+    document.getElementById('gbaScreen').style.display = 'flex';
+    document.getElementById('victoryscreen').style.display = 'flex';
+    document.getElementById('mobileButtonContainer').style.display = "none";
 }
 
 function showLoseScreen() {
-    ClearAllInterVals(); // TODO: LoseScreen anzeigen lassen.
-    gameStatus = 'lose';
+    gameFinish = true;
+    ClearAllInterVals();
+    world = null;
     document.getElementById('canvas').style.display = 'none';
-    closePopup('gamesettingspopupBackground', 'gamepopupContainer')
-    openPopup('deathscreenpopupBackground', 'deathscreenpopupContainer');
-    world = null; // Clear the world object
+    document.getElementById('gbaScreen').style.display = 'flex';
+    document.getElementById('deathscreen').style.display = 'flex';
+    document.getElementById('mobileButtonContainer').style.display = "none";
 }
 
-function retry(id, subid) {
+function retry() {
     initLevel();
     init();
-    closePopup(id, subid)
-    openPopup('gamesettingspopupBackground', 'gamepopupContainer');
     document.getElementById("canvas").style.display = "block";
 }
 
@@ -91,22 +93,83 @@ window.addEventListener("keyup", (key) => {
     }
 });
 
-function openPopup(id, subid) {
-    let popupBackground = document.getElementById(id);
-    let popupContainer = document.getElementById(subid);
-    popupBackground.style.display = "flex";
-    popupContainer.style.display = "flex";
-    if (subid === "gamepopupContainer") {
-        startTimer(); // Starte den Timer, wenn das Popup geöffnet wird
+function startGame() {
+    if (gameStatus) {
+        alert('Spiel läuft bereits!')
+        return;
+    }
+    gameStatus = true;
+    document.getElementById('gbaScreen').style.display = "flex";
+    document.getElementById('canvas').style.display = "block";
+    document.getElementById('fullscreenicon').style.display = "block";
+    initLevel();
+    init();
+}
+
+function startMobileGame() {
+    if (gameStatus) {
+        alert('Spiel läuft bereits!')
+        return;
+    }
+    gameStatus = true;
+    document.getElementById('mobileButtonContainer').style.display = "flex";
+    document.getElementById('gbaScreen').style.display = "flex";
+    document.getElementById('canvas').style.display = "block";
+    initLevel();
+    init();
+}
+
+function gameSettings() {
+    if (gameStatus) {
+        alert('Spiel läuft bereits!')
+        return;
+    } else {
+        gameSetting = true;
+        let gbaScreen = document.getElementById('gbaScreen');
+        let settings = document.getElementById('settings');
+        let canvas = document.getElementById('canvas');
+        gbaScreen.style.display = "flex";
+        settings.style.display = "flex";
+        canvas.style.display = "none";
     }
 }
 
-function closePopup(id, subid) {
-    let popupBackground = document.getElementById(id);
-    let popupContainer = document.getElementById(subid);
-    popupBackground.style.display = "none";
-    popupContainer.style.display = "none";
+function mobileGameSettings() {
+    if (gameStatus) {
+        alert('Spiel läuft bereits!')
+        return;
+    } else {
+        gameSetting = true;
+        document.getElementById('mobileSettings').style.display = "flex";
+    }
 }
+
+function makeFullscreen() {
+    const canvas = document.getElementById('canvas');
+    if (canvas.requestFullscreen) {
+        canvas.requestFullscreen();
+    } else if (canvas.mozRequestFullScreen) { // Firefox
+        canvas.mozRequestFullScreen();
+    } else if (canvas.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { // IE/Edge
+        canvas.msRequestFullscreen();
+    }
+}
+
+function closeSettings() {
+    let gbaScreen = document.getElementById('gbaScreen');
+    let settings = document.getElementById('settings');
+    gbaScreen.style.display = "none";
+    settings.style.display = "none";
+    gameSetting = false;
+}
+
+function closeMobileSettings() {
+    document.getElementById('mobileSettings').style.display = "none";
+    gameSetting = false;
+}
+
 
 function reloadPage() {
     location.reload();

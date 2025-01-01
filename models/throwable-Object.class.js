@@ -28,8 +28,6 @@ class ThrowableObject extends movableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
-
-
     throw() {
         this.speedY = 25;
         super.applyGravity();
