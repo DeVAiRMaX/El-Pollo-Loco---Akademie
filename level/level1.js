@@ -35,8 +35,20 @@ function initLevel() {
             new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 350),
         ],
         [
-            new clouds(),
-            new clouds(),
+            new clouds('img/5_background/layers/4_clouds/1.png'),
+            new clouds('img/5_background/layers/4_clouds/2.png'),
+            new clouds('img/5_background/layers/4_clouds/1.png'),
+            new clouds('img/5_background/layers/4_clouds/2.png'),
+            new clouds('img/5_background/layers/4_clouds/1.png'),
+            new clouds('img/5_background/layers/4_clouds/2.png'),
+            new clouds('img/5_background/layers/4_clouds/1.png'),
+            new clouds('img/5_background/layers/4_clouds/2.png'),
+            new clouds('img/5_background/layers/4_clouds/1.png'),
+            new clouds('img/5_background/layers/4_clouds/2.png'),
+            new clouds('img/5_background/layers/4_clouds/1.png'),
+
+            
+
         ],
         [
             new backgroundObject('img/5_background/layers/air.png', -719),

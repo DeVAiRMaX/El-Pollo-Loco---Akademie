@@ -71,19 +71,29 @@ class Endboss extends movableObject {
         this.intervalBossId = setInterval(() => {
             if (this.isDead()) {
                 this.endbossDie();
-            } else if (this.isHurt()) {
-                this.Endfight = false;
-                this.playAnimation(this.IMAGES_HURT);
-                setTimeout(() => {
-                    this.Endfight = true; // Zurück in den Kampfmodus
-                }, 500); // Zeit in Millisekunden, die die Trefferanimation dauert
-            } else if (this.Endfight) {
-                this.endBossFight();
-                this.playAnimation(this.IMAGES_ATTACK);
             } else {
-                this.playAnimation(this.IMAGES_ALERT);
+                this.handleAnimationState();
             }
         }, 1000 / 5);
+    }
+    
+    handleAnimationState() {
+        if (this.isHurt()) {
+            this.handleHurtAnimation();
+        } else if (this.Endfight) {
+            this.endBossFight();
+            this.playAnimation(this.IMAGES_ATTACK);
+        } else {
+            this.playAnimation(this.IMAGES_ALERT);
+        }
+    }
+    
+    handleHurtAnimation() {
+        this.Endfight = false;
+        this.playAnimation(this.IMAGES_HURT);
+        setTimeout(() => {
+            this.Endfight = true; // Zurück in den Kampfmodus
+        }, 500); // Zeit in Millisekunden, die die Trefferanimation dauert
     }
 
     endbossDie() {

@@ -2,6 +2,7 @@ class Bottle extends movableObject {
     width = 90;
     height = 90;
     level = level1;
+
     IMAGES_SHAKING = [
         'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
         'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
@@ -11,9 +12,7 @@ class Bottle extends movableObject {
     constructor(imagePath, y) {
         super().loadImage(imagePath);
 
-        // this.x = x;
-
-        this.x = 100 + Math.random(15) * 1900;
+        this.x = 250 + Math.random(15) * 1900;
 
         this.y = y;
         this.offset = {
