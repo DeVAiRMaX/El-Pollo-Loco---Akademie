@@ -42,7 +42,7 @@ function retry() {
     init();
     document.getElementById("canvas").style.display = "block";
 }
-
+ // TODO: afk-timer läuft trotzdem bewegung weiter!
 window.addEventListener("touchstart", (event) => {
     if (event.target.id === 'mobileRightButton') {
         event.preventDefault();
