@@ -4,20 +4,48 @@ let keyboard = new Keyboard();
 let gameStatus = false;
 let gameSetting = false;
 let gameFinish = false;
+let sounds = [];
+let muted = false;
+let victory_audio = new Audio('audio/victory.mp3');
+let lose_audio = new Audio('audio/lose.mp3');
 
-function init() {
-    gameStatus = 'playing';
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-}
+setInterval(() => {
+    isScreenWidthLessThan1000();
+    // playmusic();
+}, 100);
 
-function ClearAllInterVals() {
-    for (let i = 1; i < 9999; i++) {
-        window.clearInterval(i);
+
+function isScreenWidthLessThan1000() {
+    if (window.innerWidth < 1000) {
+        document.getElementById('rotateScreen').style.display = 'flex';
+        document.getElementById('gbagif').style.display = 'none';
+    } else {
+        document.getElementById('rotateScreen').style.display = 'none';
+        document.getElementById('gbagif').style.display = 'block';
     }
 }
 
+function playmusic() {
+    if (gameStatus) {
+        document.getElementById('music').volume = 0.5;
+        document.getElementById('music').play();
+    } else {
+        return;
+    }
+}
+
+function init() {
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
+    mobileButtons();
+}
+
 function showVictoryScreen() {
+    sounds.forEach(sound => {
+        sound.muted = true;
+    });
+    victory_audio.play();
+    victory_audio.volume = 0.1;
     ClearAllInterVals();
     gameFinish = true;
     world = null;
@@ -28,6 +56,11 @@ function showVictoryScreen() {
 }
 
 function showLoseScreen() {
+    sounds.forEach(sound => {
+        sound.muted = true;
+    });
+    lose_audio.play();
+    lose_audio.volume = 0.1;
     gameFinish = true;
     ClearAllInterVals();
     world = null;
@@ -37,19 +70,40 @@ function showLoseScreen() {
     document.getElementById('mobileButtonContainer').style.display = "none";
 }
 
-function retry() {
-    if (world !== null) {
-        world = null;
-        ClearAllInterVals();
-        console.log('genullt'); // TODO: Welt richtig leeren!!
+function fullMute() {
+    sounds.forEach(sound => {
+        sound.muted = !sound.muted;
+        muted = sound.muted; // Hier wird muted auf den aktuellen Zustand gesetzt
+    });
+    const muteButton = document.getElementById('muteButton');
+
+    if (muted) {
+        muteButton.classList.add('active');
+        mobileMuteButton.classList.add('active');
+    } else {
+        muteButton.classList.remove('active');
+        mobileMuteButton.classList.remove('active');
     }
+}
+
+function retry() {
+    sounds.forEach(sound => {
+        sound.muted = true;
+    });
     document.getElementById('victoryscreen').style.display = 'none';
     document.getElementById('deathscreen').style.display = 'none';
     document.getElementById("canvas").style.display = "block";
+    ClearAllInterVals();
     initLevel();
     init();
 }
-// TODO: afk-timer läuft trotzdem bewegung weiter!
+
+function ClearAllInterVals() {
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+}
+
 window.addEventListener("touchstart", (event) => {
     if (event.target.id === 'mobileRightButton') {
         event.preventDefault();
@@ -73,29 +127,30 @@ window.addEventListener("touchstart", (event) => {
     }
 });
 
-
-window.addEventListener("touchend", (event) => {
-    if (event.target.id === 'mobileRightButton') {
-        event.preventDefault();
-        keyboard.RIGHT = false;
-    }
-    if (event.target.id === 'mobileLeftButton') {
-        event.preventDefault();
-        keyboard.LEFT = false;
-    }
-    if (event.target.id === 'mobileUpButton') {
-        event.preventDefault();
-        keyboard.UP = false;
-    }
-    if (event.target.id === 'mobileThrowButton') {
-        event.preventDefault();
-        keyboard.D = false;
-    }
-    if (event.target.id === 'mobileHealButton') {
-        event.preventDefault();
-        keyboard.C = false;
-    }
-});
+function mobileButtons() {
+    window.addEventListener("touchend", (event) => {
+        if (event.target.id === 'mobileRightButton') {
+            event.preventDefault();
+            keyboard.RIGHT = false;
+        }
+        if (event.target.id === 'mobileLeftButton') {
+            event.preventDefault();
+            keyboard.LEFT = false;
+        }
+        if (event.target.id === 'mobileUpButton') {
+            event.preventDefault();
+            keyboard.UP = false;
+        }
+        if (event.target.id === 'mobileThrowButton') {
+            event.preventDefault();
+            keyboard.D = false;
+        }
+        if (event.target.id === 'mobileHealButton') {
+            event.preventDefault();
+            keyboard.C = false;
+        }
+    });
+}
 
 window.addEventListener("keydown", (key) => {
     if (key.keyCode == 67) {
@@ -145,16 +200,22 @@ window.addEventListener("keyup", (key) => {
     }
 });
 
+
 function startGame() {
     if (gameStatus) {
         alert('Spiel läuft bereits!')
         return;
     }
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
+    if (windowWidth < 1400 || windowHeight < 800) {
+        startMobileGame();
+        return;
+    }
     gameStatus = true;
     document.getElementById('gbaScreen').style.display = "flex";
     document.getElementById('canvas').style.display = "block";
-    document.getElementById('fullscreenicon').style.display = "flex";
-    document.getElementById('reloadButton').style.display = "flex";
+    document.getElementById('mobileHeaderButtons').style.display = "flex";
     initLevel();
     init();
 }

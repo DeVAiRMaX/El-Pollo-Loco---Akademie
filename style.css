@@ -1,14 +1,25 @@
+@import url("./css/buttons.css");
+@import url("./css/canvas.css");
+@import url("./css/deathvictoryscreen.css");
+@import url("./css/rotatescreen.css");
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url(./img/bg.jpg);
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
 }
 
-canvas {
-  width: 100%;
-  display: none;
-  background-color: rgb(0, 0, 0);
-  border-radius: 4px;
+.startscreen {
+  display: flex;
+  width: auto;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column-reverse;
 }
 
 .gba-Screen {
@@ -16,7 +27,6 @@ canvas {
   height: 330px;
   display: none;
   background-color: rgb(83, 83, 83);
-  /* box-shadow: 0px 0px 4px 0px rgb(0 0 0); */
   border-radius: 4px;
   position: relative;
   bottom: 592px;
@@ -35,70 +45,6 @@ canvas {
   justify-content: center;
 }
 
-.deathscreen {
-  width: 100%;
-  height: 100%;
-  display: none;
-  background-color: rgb(61, 61, 61);
-  border-radius: 3px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.deathscreen h2 {
-  color: white;
-  font-size: 64px;
-}
-
-.deathimage {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  top: -21px;
-  left: 0;
-  border-radius: 4px;
-}
-
-.victoryscreen {
-  width: 100%;
-  height: 100%;
-  display: none;
-  background-color: rgb(61, 61, 61);
-  border-radius: 3px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.victoryscreen h2 {
-  color: white;
-  font-size: 64px;
-}
-
-.victoryimage {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  top: -21px;
-  left: 0;
-  border-radius: 4px;
-}
-
-.victoryscreen h2 {
-  color: white;
-  font-size: 64px;
-}
-
-.victoryimage {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  top: -21px;
-  left: 0;
-  border-radius: 4px;
-}
-
 .settings img {
   width: 100%;
   height: 100%;
@@ -106,7 +52,6 @@ canvas {
   top: -21px;
   left: 0;
   border-radius: 4px;
-  /* opacity: 0.4; */
 }
 
 .closecross {
@@ -129,81 +74,6 @@ canvas {
   cursor: pointer;
 }
 
-.reloadButton {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #fffa5f, #ff7308);
-  border-radius: 50%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: fixed;
-  top: 8px;
-  left: 93px;
-  cursor: pointer;
-  transition: 0.4s;
-}
-
-.reloadButton:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.reloadButton:active {
-  transform: scale(0.95);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-}
-
-.reloadButton::before {
-  content: "\f021"; /* Font Awesome redo icon */
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 26px;
-  color: white;
-}
-
-.fullscreenButton {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #fffa5f, #ff7308);
-  border-radius: 50%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: fixed;
-  top: 8px;
-  left: 16px;
-  cursor: pointer;
-  transition: 0.4s;
-}
-
-.fullscreenButton:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.fullscreenButton:active {
-  transform: scale(0.95);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-}
-
-.fullscreenButton::before {
-  content: "\f065"; /* Font Awesome expand-arrows-alt icon */
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 26px;
-  color: white;
-}
-
-.rotateScreen {
-  display: none;
-}
 .mobile-Startscreen {
   display: none;
 }
@@ -211,226 +81,117 @@ canvas {
 .mobile-settings {
   display: none;
 }
+
 .mobile-button-container {
   display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  position: fixed;
+  bottom: 16px;
+  z-index: 10;
 }
+
+.mobile-button-container div {
+  display: flex;
+  gap: 8px;
+  padding: 0 32px;
+}
+
 .mobile-closecross {
   display: none;
 }
 
-/* Smartphone */
+.mobileHeaderButtons {
+  display: none;
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  gap: 4px;
+}
 
-@media only screen and (max-width: 720px) {
-  .start-button {
-    display: none;
-  }
-  .settings-button {
-    display: none;
-  }
-  .rotateScreen {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  .rotateScreen h2 {
-    font-size: 26px;
-  }
-  .rotated-phone {
-    height: 250px;
-    width: 150px;
-    animation: rotate 2s linear infinite;
-  }
-  
-  @keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(90deg);
-    }
+@media only screen and (max-height: 770px) {
+  .cross {
+    position: fixed;
+    top: 8px !important;
+    right: 8px;
+    left: unset !important;
   }
   .gba-Screen {
     position: unset;
   }
   canvas {
     width: 100vw;
+    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 9;
+  }
+  .settings-button {
+    right: 347px;
+    top: -190px;
+    font-size: 16px;
+  }
+  .start-button {
+    right: 336px;
+    top: -258px;
+    font-size: 16px;
+  }
+  body {
+    margin: 0;
+    align-items: flex-start;
+  }
+
+  .mobile-buttons {
+    display: flex !important;
+    position: fixed;
+    gap: 8px;
+    bottom: 8px;
+    right: 8px;
   }
   .gba {
+    width: 100vw;
+    display: flex;
+  }
+  .mobile-Startscreen {
+    display: flex;
+  }
+  .mobilescreen {
     display: none;
   }
+  .mobile-buttons {
+    display: none !important;
+  }
+}
+/* Smartphone */
+@media only screen and (max-width: 1000px) {
+  .start-button {
+    display: none;
+  }
+  .settings-button {
+    display: none;
+  }
+  .gba-Screen {
+    position: unset;
+  }
+  /* .gba {
+    display: none;
+  } */
 }
 
 @media only screen and (max-height: 480px) {
-  .rotateScreen {
-    display: none;
-  }
-  .mobile-healbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-healbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-healbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-healbutton::before {
-    content: "\f479"; /* Font Awesome first aid kit icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobile-throwbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-throwbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-throwbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-throwbutton::before {
-    content: "\f72f"; /* Font Awesome wine bottle icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobile-upbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-upbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-upbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-upbutton::before {
-    content: "\f062"; /* Font Awesome up arrow icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobile-leftbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-leftbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-leftbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-leftbutton::before {
-    content: "\f060"; /* Font Awesome left arrow icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobile-rightbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-rightbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-rightbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-rightbutton::before {
-    content: "\f061"; /* Font Awesome right arrow icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
   .mobile-button-container {
-    width: 95vw;
+    width: 100vw;
     position: absolute;
     display: none;
     justify-content: space-between;
     bottom: 4px;
     z-index: 10;
+  }
+
+  .mobile-buttons {
+    display: flex !important;
   }
 
   .mobile-button-container div {
@@ -440,30 +201,6 @@ canvas {
 
   .cross {
     display: none;
-  }
-  .deathimage {
-    top: 0;
-    border-radius: 0;
-  }
-  .deathscreen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: cover;
-    width: 100vw;
-    height: 100vh;
-  }
-  .victoryimage {
-    top: 0;
-    border-radius: 0;
-  }
-  .victoryscreen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: cover;
-    width: 100vw;
-    height: 100vh;
   }
 
   .mobile-closecross {
@@ -496,86 +233,13 @@ canvas {
   .fullscreen {
     display: none;
   }
-  .mobile-settingsbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-settingsbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-settingsbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-settingsbutton::before {
-    content: "\f013"; /* Font Awesome gear icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 28px;
-    color: white;
-  }
-  .mobile-startbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-startbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-startbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-startbutton::before {
-    content: "\f04b"; /* Font Awesome play icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 28px;
-    color: white;
-  }
-
-  .mobile-buttons {
-    display: flex;
-    position: fixed;
-    gap: 8px;
-    bottom: 8px;
-    right: 8px;
-  }
-  .start-button {
-    display: none;
-  }
-  .settings-button {
-    display: none;
-  }
   .mobile-Startscreen {
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .mobilescreen {
+    display: flex;
     width: 100vw;
     height: 100vh;
     background-size: cover;
@@ -585,16 +249,7 @@ canvas {
     height: auto;
     padding: 0;
   }
-  .gba {
-    display: none;
-  }
   .gba-Screen {
     position: unset;
-  }
-  canvas {
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 }

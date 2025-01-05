@@ -1,0 +1,41 @@
+.rotateScreen {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .rotateScreen {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .rotateScreen h2 {
+    font-size: 26px;
+  }
+  .rotated-phone {
+    height: 250px;
+    width: 150px;
+    animation: rotate 2s linear infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  .rotateScreen {
+    display: none !important;
+  }
+}

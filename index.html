@@ -3,9 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>El Pollo Loco</title>
+
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="start.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
     <script src="./models/keyboard.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/status-bar.class.js"></script>
@@ -25,22 +31,30 @@
     <script src="./models/bottle.class.js"></script>
     <script src="./models/throwable-Object.class.js"></script>
     <script src="./level/level1.js"></script>
-    <!-- <script src="./js/htmltemplate.js"></script> -->
-    <!-- <script src="./js/timer.js"></script> -->
     <script src="./js/game.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
   </head>
   <body>
-    <button onclick="makeFullscreen()" class="fullscreenButton" id="fullscreenicon"></button>
+    
+    <!-- Fullscreen-/Reloadbutton -->
+    <div class="mobileHeaderButtons" id="mobileHeaderButtons">
+    <button
+      onclick="makeFullscreen()"
+      class="fullscreenButton"
+      id="fullscreenicon"
+    ></button>
     <button onclick="retry()" class="reloadButton" id="reloadButton"></button>
-        
+    <button onclick="fullMute()" class="muteButton" id="muteButton"></button>
+  </div>
+    <!-- Fullscreen-/Reloadbutton End-->
 
+    <!-- Mobile Playbuttons -->
     <div class="mobile-button-container" id="mobileButtonContainer">
       <div>
-        <button onclick="" class="mobile-leftbutton" id="mobileLeftButton"></button>
+        <button
+          onclick=""
+          class="mobile-leftbutton"
+          id="mobileLeftButton"
+        ></button>
         <button
           onclick=""
           class="mobile-rightbutton"
@@ -49,10 +63,14 @@
       </div>
       <div>
         <button
-          onclick=""
-          class="mobile-upbutton"
-          id="mobileUpButton"
+          onclick="retry()"
+          class="mobile-restart"
+          id="mobileRestart"
         ></button>
+        <button onclick="fullMute()" class="mobileMuteButton" id="mobileMuteButton"></button>
+      </div>
+      <div>
+        <button onclick="" class="mobile-upbutton" id="mobileUpButton"></button>
         <button
           onclick=""
           class="mobile-throwbutton"
@@ -65,14 +83,16 @@
         ></button>
       </div>
     </div>
+    <!-- Mobile Playbuttons End -->
+
+    <!-- Rotationscreen -->
+    <div class="rotateScreen" id="rotateScreen">
+      <h2>Please turn your phone!</h2>
+      <img class="rotated-phone" src="./img/smartphone.png" alt="" />
+    </div>
+    <!-- Rotationscreen End-->
 
     <!-- Mobile -->
-    <div class="rotateScreen">
-      <h2>Please turn your phone!</h2>
-      <img class="rotated-phone" src="./img/smartphone.png" alt="">
-      
-
-    </div>
     <div class="mobile-Startscreen">
       <div id="mobileSettings" class="mobile-settings">
         <img src="./img/settings.gif" alt="" />
@@ -83,7 +103,7 @@
           onclick="closeMobileSettings()"
         />
       </div>
-      <div class="mobile-buttons">
+      <div class="mobile-buttons" id="mobileStartSettingButtons">
         <button onclick="startMobileGame()" class="mobile-startbutton"></button>
         <button
           onclick="mobileGameSettings()"
@@ -92,7 +112,7 @@
       </div>
       <img class="mobilescreen" src="./img/startscreen.gif" alt="" />
     </div>
-    <!-- Mobile Ende -->
+    <!-- Mobile End -->
 
     <!-- Startscreen -->
     <div class="startscreen">
@@ -138,15 +158,15 @@
             onclick="closeSettings()"
           />
           <img src="./img/settings.gif" alt="" />
-          <!-- <button onclick="closeSettings()">close</button> -->
         </div>
       </div>
 
       <button class="start-button" onclick="startGame()">Start</button>
       <button class="settings-button" onclick="gameSettings()">Settings</button>
 
-      <img src="./img/gba.gif" alt="" class="gba" />
+      <img src="./img/gba.gif" alt="" class="gba" id="gbagif" />
     </div>
-    <!-- Startscreen Ende -->
+    <!-- Startscreen End -->
+
   </body>
 </html>

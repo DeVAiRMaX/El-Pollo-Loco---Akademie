@@ -12,10 +12,15 @@ class World {
     coinBar = new CoinBar();
     bossBar = new BossBar();
     ThrowableObject = [];
+    gameisrunning = false;
+    game_music = new Audio('audio/music.mp3');
+    jump_on_chicken = new Audio('audio/jump_on_chicken.mp3');
+    endfight_audio = new Audio('audio/endfight.mp3');
 
 
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
+        this.gameisrunning = true;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.draw();
@@ -23,6 +28,18 @@ class World {
         this.run();
         this.checkBottleCollision();
         this.checkBossBottleCollision();
+        this.playmusic();
+    }
+
+    playmusic() {
+        if (this.gameisrunning) {
+            this.game_music.loop = true;
+            this.game_music.play();
+            this.game_music.volume = 0.1;
+            sounds.push(this.game_music);
+        } else {
+            return;
+        }
     }
 
     setWorld() {
@@ -30,7 +47,7 @@ class World {
     }
 
     run() {
-        setInterval(() => this.handleKeyboardActions(), 250);
+        setInterval(() => this.handleKeyboardActions(), 200);
         setInterval(() => this.handleCollisions(), 50);
     }
 
@@ -55,6 +72,11 @@ class World {
         if (this.character.x >= 1500) {
             this.level.enemies.forEach(endboss => {
                 if (endboss instanceof Endboss) {
+                    this.game_music.pause();
+                    this.endfight_audio.loop = true;
+                    this.endfight_audio.volume = 0.1;
+                    this.endfight_audio.play();
+                    sounds.push(this.endfight_audio);
                     endboss.Endfight = true;
                 }
             });
@@ -82,7 +104,8 @@ class World {
     handleJumpOnEnemy(index, enemy) {
         if (enemy instanceof Endboss) return;
         if (enemy instanceof chicken || enemy instanceof Smallchicken) {
-            // TODO: Sound einfügen
+            this.jump_on_chicken.play();
+            this.jump_on_chicken.volume = 0.1;
         }
         this.collisionsJumpAttack(index, this.character.y);
         setTimeout(() => {
@@ -110,16 +133,27 @@ class World {
     checkBossBottleCollision() {
         setInterval(() => {
             this.ThrowableObject.forEach((bottle, bottleIndex) => {
-                this.level.enemies.forEach((endboss) => {
-                    if (endboss.isColliding(bottle)) {
-                        endboss.bottleHit(endboss.energy);
-                        this.bossBar.setBossPercentage(endboss.energy);
-                        this.ThrowableObject.splice(bottleIndex, 1);
-                        this.checkCharakterEndbossFight();
+                this.level.enemies.forEach((enemy, enemyIndex) => {
+                    if (enemy.isColliding(bottle)) {
+                        this.handleBottleCollision(enemy, enemyIndex, bottleIndex);
                     }
                 });
             });
         }, 200);
+    }
+
+    handleBottleCollision(enemy, enemyIndex, bottleIndex) {
+        if (enemy instanceof chicken || enemy instanceof Smallchicken) {
+            enemy.energy -= 100;
+            setTimeout(() => {
+                this.level.enemies.splice(enemyIndex, 1);
+            }, 500);
+        } else {
+            enemy.bottleHit(enemy.energy);
+            this.bossBar.setBossPercentage(enemy.energy);
+            this.checkCharakterEndbossFight();
+        }
+        this.ThrowableObject.splice(bottleIndex, 1);
     }
 
     checkCoinCollision() {

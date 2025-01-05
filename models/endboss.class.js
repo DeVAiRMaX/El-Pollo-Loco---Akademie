@@ -42,6 +42,8 @@ class Endboss extends movableObject {
     ];
     Endfight = false;
     isJumping = false;
+    endbossattack_audio = new Audio('audio/endbossattack.mp3');
+    
 
 
     constructor() {
@@ -70,6 +72,7 @@ class Endboss extends movableObject {
     animate() {
         this.intervalBossId = setInterval(() => {
             if (this.isDead()) {
+                this.endbossattack_audio.pause();
                 this.endbossDie();
             } else {
                 this.handleAnimationState();
@@ -81,6 +84,10 @@ class Endboss extends movableObject {
         if (this.isHurt()) {
             this.handleHurtAnimation();
         } else if (this.Endfight) {
+            this.endbossattack_audio.loop = true;
+            this.endbossattack_audio.volume = 0.5;
+            this.endbossattack_audio.play();
+            sounds.push(this.endbossattack_audio);
             this.endBossFight();
             this.playAnimation(this.IMAGES_ATTACK);
         } else {
@@ -91,6 +98,7 @@ class Endboss extends movableObject {
     handleHurtAnimation() {
         this.Endfight = false;
         this.playAnimation(this.IMAGES_HURT);
+        
         setTimeout(() => {
             this.Endfight = true; // Zurück in den Kampfmodus
         }, 500); // Zeit in Millisekunden, die die Trefferanimation dauert
