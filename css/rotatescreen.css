@@ -9,11 +9,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 9;
+    z-index: 999;
     /* display: flex; */
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-image: url(../img/bg.jpg);
   }
   .rotateScreen h2 {
     font-size: 26px;

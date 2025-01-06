@@ -11,6 +11,11 @@ class chicken extends movableObject {
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png',
     ];
     
+    /**
+     * Constructor for chicken
+     * @param {number} x - The x position of the chicken.
+     */
+
     constructor(x) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
 
@@ -22,6 +27,13 @@ class chicken extends movableObject {
 
         this.animate();
     }
+    
+    /**
+     * Animates the chicken.
+     * The chicken moves to the left by calling moveLeft() every 60th of a second.
+     * Every 150ms, the chicken's animation is updated. If the chicken is dead,
+     * the animation is stopped and the dead animation is played once.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();

@@ -73,6 +73,14 @@ class Character extends movableObject {
     groundLevel = 70;
     afkTimer = 0;
 
+    /**
+     * Creates a new instance of the character.
+     * @constructor
+     * @this {Character}
+     * @param {World} world The world the character will be in.
+     * @param {number} x The x position of the character.
+     * @param {number} y The y position of the character.
+     */
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_STAND);
@@ -88,6 +96,10 @@ class Character extends movableObject {
         this.applyGravity();
     }
 
+    /**
+     * Animates the character by setting audio volumes, handling AFK state, 
+     * setting up movement intervals, and configuring animation intervals.
+     */
     animate() {
         this.setAudioVolumes();
         this.handleCharakterAFK();
@@ -95,22 +107,36 @@ class Character extends movableObject {
         this.setupAnimationInterval();
     }
 
+    /**
+     * Handles the AFK state of the character by checking if the user hasn't
+     * pressed any of the movement keys in the last second. If the user hasn't
+     * pressed any of the keys, the AFK timer will be incremented by one.
+     * If the user presses any of the keys, the AFK timer will be reset to zero.
+     */
     handleCharakterAFK() {
         setInterval(() => {
             if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.D) {
                 this.afkTimer++;
-            } }, 1000);
-            setInterval(() => {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.D) {
-                    this.resetAfkTimer();
-                }
-            }, 10);
-        }
+            }
+        }, 1000);
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.D) {
+                this.resetAfkTimer();
+            }
+        }, 10);
+    }
 
+    /**
+     * Resets the AFK timer to zero, indicating that the user has pressed
+     * a movement key within the last second.
+     */
     resetAfkTimer() {
         this.afkTimer = 0;
     }
 
+    /**
+     * Sets the volume of all audio elements of the character to 0.4.
+     */
     setAudioVolumes() {
         this.walking_audio.volume = 0.4;
         this.jump_audio.volume = 0.4;
@@ -119,6 +145,14 @@ class Character extends movableObject {
         this.snoring_audio.volume = 0.4;
     }
 
+    /**
+     * Sets up an interval to handle character movement based on keyboard input.
+     * 
+     * Pauses walking audio and checks for specific keyboard inputs to trigger
+     * character movements such as moving right, left, or up. Also plays throw
+     * audio if the corresponding key is pressed and adjusts the camera position
+     * based on the character's x-coordinate.
+     */
     setupMovementInterval() {
         setInterval(() => {
             this.walking_audio.pause();
@@ -129,7 +163,13 @@ class Character extends movableObject {
             this.world.camera_x = -this.x + 75;
         }, 1000 / 30);
     }
-    
+
+    /**
+     * Handles the right arrow key press by moving the character right and
+     * playing the walking audio if the character is not at the end of the level.
+     * The character's direction will be set to false, which indicates that the
+     * character is facing right.
+     */
     handleRightMovement() {
         if (this.x < this.world.level.level_end_x) {
             this.moveRight();
@@ -137,7 +177,13 @@ class Character extends movableObject {
             this.walking_audio.play();
         }
     }
-    
+
+    /**
+     * Handles the left arrow key press by moving the character left,
+     * playing the walking audio, and setting the character's direction
+     * to indicate that it is facing left. Ensures the character does not
+     * move beyond the left boundary of the game world.
+     */
     handleLeftMovement() {
         if (this.x > 0) {
             this.moveLeft();
@@ -145,7 +191,12 @@ class Character extends movableObject {
             this.otherDirectoin = true;
         }
     }
-    
+
+    /**
+     * Handles the up arrow key press by making the character jump if the character
+     * is not in the air and playing the jump audio. If the character is already in
+     * the air, the character will not jump again.
+     */
     handleUpMovement() {
         if (!this.isInAboveGround()) {
             this.jump();
@@ -153,6 +204,14 @@ class Character extends movableObject {
         }
     }
 
+    /**
+     * Sets up an interval to handle character animations based on the character's state.
+     * 
+     * Checks every 150ms if the character is dead, AFK (by checking the afkTimer), hurt, jumping, moving right or left, or standing still.
+     * If the character is dead, the character die animation is played. If the character is AFK, the sleep animation is played.
+     * If the character is hurt, the hurt animation is played. If the character is jumping, the jump animation is played.
+     * If the character is moving right or left, the walk animation is played. If the character is standing still, the stand animation is played.
+     */
     setupAnimationInterval() {
         setInterval(() => {
             if (this.isDead()) this.charakterDie();
@@ -166,36 +225,63 @@ class Character extends movableObject {
             }
         }, 150);
     }
-    
+
+    /**
+     * Plays the sleep animation (character snoring) and plays the snoring audio.
+     * The snoring audio is added to the sounds array.
+     */
     playSleepAnimation() {
         this.playAnimation(this.IMAGE_SNORING);
         this.snoring_audio.play();
         sounds.push(this.snoring_audio);
     }
-    
+
+    /**
+     * Stops the sleep animation (character snoring) and pauses the snoring audio.
+     * Plays the stand animation instead.
+     */
     stopSleepAnimation() {
         this.playStandAnimation();
         this.snoring_audio.pause();
     }
-    
+
+    /**
+     * Plays the jump animation (character jumping).
+     */
     playJumpAnimation() {
         this.playAnimation(this.IMAGES_JUMPING);
     }
 
+    /**
+     * Plays the hurt animation (character hurt) and plays the hurt audio.
+     * The hurt audio is added to the sounds array.
+     */
     playHurtAnimation() {
         this.playAnimation(this.IMAGES_HURT);
         this.hurt_audio.play();
         sounds.push(this.hurt_audio);
     }
-    
+
+    /**
+     * Plays the walk animation (character walking).
+     */
     playWalkAnimation() {
         this.playAnimation(this.IMAGES_WALKING);
     }
-    
+
     playStandAnimation() {
+        /**
+         * Plays the stand animation (character standing still).
+         */
         this.playAnimation(this.IMAGES_STAND);
     }
 
+    /**
+     * Spends one coin to gain 10 energy points, unless the player has 100 energy points
+     * or no coins left. If the player has more than 10 energy points missing, the energy
+     * is increased by 10 points. If the player has 10 energy points or less missing, the
+     * energy is set to 100.
+     */
     spendCoinsForEnergy() {
         if (this.energy === 100 || this.coinsAmmount <= 0) {
             return;
@@ -206,22 +292,37 @@ class Character extends movableObject {
         }
     }
 
+    /**
+     * Shows the death screen after a game over.
+     * Hides the canvas, closes the game settings popup and opens the death screen popup.
+     */
     showDeathScreen() {
         document.getElementById('canvas').style.display = 'none';
         closePopup('gamesettingspopupBackground', 'gamepopupContainer')
         openPopup('deathscreenpopupBackground', 'deathscreenpopupContainer');
     }
 
+    /**
+     * Initiates a jump by setting the character's jumping state to true 
+     * and giving it an upward speed.
+     */
     jump() {
         this.isJumping = true;
         this.speedY = 25;
     }
 
+    /**
+     * Initiates the character's death animation by starting a short jump and then animating the death.
+     */
     charakterDie() {
         this.initiateDeathJump();
         this.animateDeath();
     }
 
+    /**
+     * Initiates a short jump before the character dies. The character jumps upwards for a short duration
+     * and then falls back down to the ground. This is an animation that is played before the character dies finally.
+     */
     initiateDeathJump() {
         this.isJumping = true;
         this.speedY = 10;
@@ -234,6 +335,11 @@ class Character extends movableObject {
         }, jumpDuration);
     }
 
+    /**
+     * Animates the character falling to the ground. This is an animation that is played when the character dies.
+     * The character is moved downwards until it reaches the ground level. When the character reaches the ground level,
+     * the death screen is triggered.
+     */
     fallToGround() {
         const fallSpeed = 5;
         const groundLevel = 600;
@@ -248,19 +354,32 @@ class Character extends movableObject {
         }, 1000 / 30);
     }
 
+    /**
+     * Triggers the death screen after a short delay of 300ms, after the character has finished falling to the ground.
+     * The death screen is displayed by calling the showLoseScreen() function.
+     */
     triggerDeathScreen() {
         setTimeout(() => {
             showLoseScreen();
         }, 300);
     }
 
+    /**
+     * Animates the character dying. This animation is played when the character dies.
+     * The animation is played by setting an interval that calls the playAnimation() function
+     * every 200ms and passes the IMAGES_DEAD array as an argument.
+     */
     animateDeath() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_DEAD);
         }, 200);
     }
 
-
+    /**
+     * Animates the character jumping again after it has been hit by an enemy.
+     * The character is moved upwards until it reaches the ground level. When the character reaches the ground level,
+     * the jumping animation is stopped and the character is set to not be jumping anymore.
+     */
     jumpAgain() {
         this.isJumping = true;
         this.speedY = 20;

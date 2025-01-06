@@ -10,6 +10,15 @@ class Smallchicken extends movableObject {
     IMAGES_DEAD = [
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
     ];
+
+    /**
+     * Creates an instance of Smallchicken.
+     * Loads the initial image for the small chicken, sets its x position,
+     * assigns a random speed, and initializes the walking and dead animation images.
+     * Starts the chicken's animation.
+     * 
+     * @param {number} x - The x-coordinate for the small chicken's initial position.
+     */
     constructor(x) {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
 
@@ -22,7 +31,13 @@ class Smallchicken extends movableObject {
         this.animate();
     }
 
-    ani
+    /**
+     * Animates the small chicken.
+     * The small chicken moves to the left by calling moveLeft() every 60th of a second.
+     * Every 150ms, the small chicken's walking animation is updated.
+     * If the small chicken is dead, the walking animation interval is cleared,
+     * the dead animation is played once, and movement is stopped.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();

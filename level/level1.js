@@ -1,13 +1,24 @@
 let level1;
 
+/**
+ * Initializes the first level by creating a new Level object with the corresponding
+ * enemies, coins, bottles, clouds, and background objects.
+ * The enemies are a chicken, a small chicken, and an Endboss.
+ * The coins are placed at x coordinates 400, 475, 575, 675, 750, 1200, 1275, 1375, 1475, and 1550.
+ * The bottles are placed at x coordinates 350.
+ * The clouds are placed at x coordinates -719, 0, 719, 719*2, and 719*3.
+ * The background objects are placed at x coordinates -719, 0, 719, 719*2, and 719*3.
+ */
 function initLevel() {
 
     level1 = new Level(
         [
+            new chicken(450),
+            new Smallchicken(650),
             new chicken(850),
-            // new Smallchicken(1200),
-            // new chicken(1800),
-            // new Smallchicken(1500),
+            new Smallchicken(1200),
+            new chicken(1800),
+            new Smallchicken(1500),
             new Endboss()
         ],
         [

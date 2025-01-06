@@ -9,10 +9,15 @@ class Bottle extends movableObject {
     ];
 
 
+/**
+ * Constructs a new Bottle object.
+ * @param {string} imagePath - The path to the image representing the bottle.
+ * @param {number} y - The y-coordinate where the bottle is placed.
+ */
     constructor(imagePath, y) {
         super().loadImage(imagePath);
 
-        this.x = 250 + Math.random(15) * 1800;
+        this.x = 250 + Math.random(15) * 1400;
 
         this.y = y;
         this.offset = {
@@ -26,6 +31,10 @@ class Bottle extends movableObject {
         this.animate();
     }
 
+    /**
+     * Animates the bottle object by playing the shaking animation every 250 ms.
+     * The animation is a sequence of two images which are played in an infinite loop.
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_SHAKING);

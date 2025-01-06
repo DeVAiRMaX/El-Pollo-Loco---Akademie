@@ -425,25 +425,37 @@
     font-size: 28px;
     color: white;
   }
+  .impressum-button {
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #fffa5f, #ff7308);
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-@media only screen and (max-height: 480px) {
-  /* .mobile-leftbutton {
-    display: none;
+  .impressum-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
-  .mobile-rightbutton {
-    display: none;
-  }
-  .mobile-restart {
-    display: none;
-  }
-  .mobile-upbutton {
-    display: none;
-  }
-  .mobile-throwbutton {
-    display: none;
-  }
-  .mobile-healbutton {
-    display: none;
-  } */
 
-}
+  .impressum-button::before {
+    content: "\f518";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 28px;
+    color: white;
+  }
+
+  @media only screen and (max-width: 1100px) {
+    .impressum-button {
+      display: none;
+  }
+  }

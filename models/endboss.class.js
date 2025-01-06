@@ -43,9 +43,13 @@ class Endboss extends movableObject {
     Endfight = false;
     isJumping = false;
     endbossattack_audio = new Audio('audio/endbossattack.mp3');
-    
 
-
+    /**
+     * Constructor for the endboss.
+     * The constructor loads the different image states for the endboss, sets the offset for collision detection and sets the initial x and y coordinates of the endboss.
+     * The endboss is placed at the right side of the screen and moves to the left with the speed of 10 pixels per frame.
+     * The animate() method is called to start the animation of the endboss.
+     */
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
 
@@ -69,6 +73,13 @@ class Endboss extends movableObject {
         this.animate();
     }
 
+    /**
+     * Animates the endboss by setting up a recurring interval.
+     * 
+     * If the endboss is dead, the attack audio is paused and the dying animation is triggered.
+     * Otherwise, it continues handling the animation state.
+     * The interval runs every 200ms.
+     */
     animate() {
         this.intervalBossId = setInterval(() => {
             if (this.isDead()) {
@@ -79,7 +90,17 @@ class Endboss extends movableObject {
             }
         }, 1000 / 5);
     }
-    
+
+
+    /**
+     * Handles the animation state of the endboss based on its current status.
+     * 
+     * If the endboss is hurt, it triggers the hurt animation sequence.
+     * If the endboss is in the end fight mode (Endfight is true), it plays 
+     * the attack audio in a loop, initiates the end boss fight sequence, 
+     * and displays the attack animation.
+     * If neither condition is met, it defaults to the alert animation.
+     */
     handleAnimationState() {
         if (this.isHurt()) {
             this.handleHurtAnimation();
@@ -94,25 +115,42 @@ class Endboss extends movableObject {
             this.playAnimation(this.IMAGES_ALERT);
         }
     }
-    
+
+    /**
+     * Handles the hurt animation sequence for the endboss.
+     * 
+     * This method is called when the endboss is hurt. It first stops the endboss fight mode, plays the hurt animation, and then waits for 0.5s before re-enabling the endboss fight mode.
+     */
     handleHurtAnimation() {
         this.Endfight = false;
         this.playAnimation(this.IMAGES_HURT);
-        
+
         setTimeout(() => {
             this.Endfight = true; // Zurück in den Kampfmodus
         }, 500); // Zeit in Millisekunden, die die Trefferanimation dauert
     }
 
+
+    /**
+     * Animates the endboss dying and displays the victory screen after 1 second.
+     * 
+     * This method is called when the endboss is defeated. It will animate the endboss dying by playing the death animation every 100ms and then display the victory screen after 1 second.
+     */
     endbossDie() {
-            setInterval(() => {
-                this.playAnimation(this.IMAGES_DEAD);
-            }, 1000 / 10);
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_DEAD);
+        }, 1000 / 10);
         setTimeout(() => {
             showVictoryScreen();
         }, 1000);
     }
 
+
+    /**
+     * Starts moving the endboss to the left at a speed of 10 pixels per frame.
+     * 
+     * This method is called when the endboss is spawned and will make the endboss move from right to left across the screen until it is defeated.
+     */
     startMoving() {
         return this.x -= this.speed;
     }

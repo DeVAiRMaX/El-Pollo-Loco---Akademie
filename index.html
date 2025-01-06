@@ -11,6 +11,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+      rel="stylesheet"
+    />
 
     <script src="./models/keyboard.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
@@ -34,17 +40,16 @@
     <script src="./js/game.js"></script>
   </head>
   <body>
-    
     <!-- Fullscreen-/Reloadbutton -->
     <div class="mobileHeaderButtons" id="mobileHeaderButtons">
-    <button
-      onclick="makeFullscreen()"
-      class="fullscreenButton"
-      id="fullscreenicon"
-    ></button>
-    <button onclick="retry()" class="reloadButton" id="reloadButton"></button>
-    <button onclick="fullMute()" class="muteButton" id="muteButton"></button>
-  </div>
+      <button
+        onclick="makeFullscreen()"
+        class="fullscreenButton"
+        id="fullscreenicon"
+      ></button>
+      <button onclick="retry()" class="reloadButton" id="reloadButton"></button>
+      <button onclick="fullMute()" class="muteButton" id="muteButton"></button>
+    </div>
     <!-- Fullscreen-/Reloadbutton End-->
 
     <!-- Mobile Playbuttons -->
@@ -67,7 +72,11 @@
           class="mobile-restart"
           id="mobileRestart"
         ></button>
-        <button onclick="fullMute()" class="mobileMuteButton" id="mobileMuteButton"></button>
+        <button
+          onclick="fullMute()"
+          class="mobileMuteButton"
+          id="mobileMuteButton"
+        ></button>
       </div>
       <div>
         <button onclick="" class="mobile-upbutton" id="mobileUpButton"></button>
@@ -150,6 +159,22 @@
         </div>
 
         <canvas id="canvas" width="720px" height="480px"></canvas>
+        <div class="impressumContainer" id="impressumContainer">
+          <h2>Impressum</h2>
+          <p>Maximilian Wagener</p>
+          <p>Wiesenrainsgarten 13</p>
+          <p>57234 Wilnsdorf</p>
+
+          <h2>Kontakt</h2>
+          <p>Telefon: 0172123456789</p>
+          <p>E-Mail: devmax@web.de</p>
+          <img
+            src="./img/cross.png"
+            alt=""
+            class="crossImpressum"
+            onclick="toggleImpressum()"
+          />
+        </div>
         <div class="settings" id="settings">
           <img
             src="./img/cross.png"
@@ -168,5 +193,10 @@
     </div>
     <!-- Startscreen End -->
 
+    <button
+      class="impressum-button"
+      id="impressumButton"
+      onclick="toggleImpressum()"
+    ></button>
   </body>
 </html>

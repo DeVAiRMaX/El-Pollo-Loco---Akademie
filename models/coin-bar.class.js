@@ -10,6 +10,12 @@ class CoinBar extends DrawableObject{
 
     coinAmmount = 0;
 
+    /**
+     * Initializes a new CoinBar object.
+     *
+     * Loads the images for the coin bar, sets the position and size of the bar
+     * and sets the ammount of coins to 0.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES_COINBAR);
@@ -20,13 +26,25 @@ class CoinBar extends DrawableObject{
         this.setCoinAmmount(0);
     }
 
+    /**
+     * Sets the ammount of coins for the coin bar.
+     *
+     * @param {number} coinAmmount - The ammount of coins to set.
+     *
+     * Sets the ammount of coins to the given value, makes sure it is within the range of 0 to 10 and sets the image to be rendered accordingly.
+     */
     setCoinAmmount(coinAmmount) {
         this.coinAmmount = coinAmmount * 10;
         let path = this.IMAGES_COINBAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
-
+    /**
+     * Calculates the index of the image to be rendered for the coin bar
+     * based on the current coin ammount.
+     *
+     * @returns {number} The index of the image to be rendered.
+     */
     resolveImageIndex() {
         if (this.coinAmmount >= 95) {
             return 5;

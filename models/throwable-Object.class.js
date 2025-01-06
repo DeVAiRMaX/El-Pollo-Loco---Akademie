@@ -1,6 +1,14 @@
 class ThrowableObject extends movableObject {
     bottles = [];
 
+/**
+ * Creates an instance of ThrowableObject.
+ * Loads the initial image for the throwable object, sets its x and y positions,
+ * initializes the flying and splash animation images, and starts the throw action.
+ *
+ * @param {number} x - The initial x-coordinate of the throwable object.
+ * @param {number} y - The initial y-coordinate of the throwable object.
+ */
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_FLYING);
@@ -28,6 +36,14 @@ class ThrowableObject extends movableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
+    /**
+     * Animates the throwing of the bottle.
+     *
+     * The bottle is thrown by applying gravity to it and moving it to the right.
+     * The bottle is animated by calling playAnimation() with the IMAGES_FLYING array.
+     * When the bottle hits the ground, the animation is stopped and the bottle splash
+     * animation is played once.
+     */
     throw() {
         this.speedY = 25;
         super.applyGravity();

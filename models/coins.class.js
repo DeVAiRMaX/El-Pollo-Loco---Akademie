@@ -7,7 +7,12 @@ class Coin extends movableObject {
         'img/8_coin/coin_2.png'
     ];
 
-    
+    /**
+     * Creates a new Coin instance.
+     * @param {string} imagePath - path to the image to use for the coin
+     * @param {number} x - x coordinate of the coin
+     * @param {number} y - y coordinate of the coin
+     */
     constructor(imagePath, x, y) {
         super().loadImage(imagePath);
         this.x = x;
@@ -16,6 +21,9 @@ class Coin extends movableObject {
         this.animate();
     }
 
+    /**
+     * Animates the coin by playing the shaking animation every 100ms.
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_SHAKING);
