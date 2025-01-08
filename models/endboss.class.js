@@ -56,6 +56,8 @@ class Endboss extends movableObject {
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
 
+        sounds.push(this.endbossattack_audio);
+
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
@@ -117,7 +119,6 @@ class Endboss extends movableObject {
             this.handleHurtAnimation()
         } else if (this.Endfight) {
             if (!this.endbossattack_audioAdded) {
-                sounds.push(this.endbossattack_audio);
                 this.endbossattack_audio.loop = true;
                 this.endbossattack_audio.volume = 0.5;
                 this.endbossattack_audio.play();
