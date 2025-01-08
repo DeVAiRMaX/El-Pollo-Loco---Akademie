@@ -47,7 +47,6 @@ class Smallchicken extends movableObject {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
             if (this.isDead()) {
-                clearInterval(this.intervalBossId); // Interval stoppen
                 this.playAnimation(this.IMAGES_DEAD);
                 this.stopmoving();
             }

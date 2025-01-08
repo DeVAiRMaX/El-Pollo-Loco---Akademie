@@ -66,13 +66,13 @@ class Character extends movableObject {
     BottlesAmmount = 0;
     walking_audio = new Audio('audio/walking.mp3');
     jump_audio = new Audio('audio/jump.mp3');
-    throw_audio = new Audio('audio/throw.mp3');
     snoring_audio = new Audio('audio/snoring.mp3');
     hurt_audio = new Audio('audio/hurt.mp3');
     isJumping = true;
     groundLevel = 70;
     afkTimer = 0;
     lose_audio = new Audio('audio/lose.mp3');
+    bottleIsFlying = false;
 
     /**
      * Creates a new instance of the character.
@@ -90,6 +90,11 @@ class Character extends movableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+
+        sounds.push(this.walking_audio);
+        sounds.push(this.hurt_audio);
+        sounds.push(this.jump_audio);
+        sounds.push(this.snoring_audio);
 
         this.individualCounter = 0;
         this.animate();
@@ -142,9 +147,8 @@ class Character extends movableObject {
     setAudioVolumes() {
         this.walking_audio.volume = 0.4;
         this.jump_audio.volume = 0.4;
-        this.throw_audio.volume = 0.4;
         this.hurt_audio.volume = 0.4;
-        this.snoring_audio.volume = 0.4;
+        this.snoring_audio.volume = 0.3;
         this.lose_audio.volume = 0.4;
     }
 
@@ -162,7 +166,6 @@ class Character extends movableObject {
             if (this.world.keyboard.RIGHT) this.handleRightMovement();
             if (this.world.keyboard.LEFT) this.handleLeftMovement();
             if (this.world.keyboard.UP) this.handleUpMovement();
-            if (this.world.keyboard.D) this.throw_audio.play();
             this.world.camera_x = -this.x + 75;
         }, 1000 / 30);
     }
@@ -240,7 +243,6 @@ class Character extends movableObject {
     playSleepAnimation() {
         this.playAnimation(this.IMAGE_SNORING);
         this.snoring_audio.play();
-        sounds.push(this.snoring_audio);
     }
 
     /**
@@ -266,7 +268,6 @@ class Character extends movableObject {
     playHurtAnimation() {
         this.playAnimation(this.IMAGES_HURT);
         this.hurt_audio.play();
-        // sounds.push(this.hurt_audio);
     }
 
     /**

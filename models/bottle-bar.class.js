@@ -35,7 +35,12 @@ class BottleBar extends DrawableObject {
      */
     setBottleAmmount(bottleAmmount) {
         this.bottleAmmount = Math.max(0, Math.min(bottleAmmount, 10));
-        let i = Math.floor(this.bottleAmmount / 2);
+        let i = Math.floor((this.bottleAmmount / 10) * 5);
+        if (this.bottleAmmount === 10) {
+            i = 5;
+        } else if (this.bottleAmmount > 0) {
+            i = Math.max(1, i);
+        }
         let path = this.IMAGES_BOTTLEBAR[i];
         this.img = this.imageCache[path];
     }

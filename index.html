@@ -17,6 +17,8 @@
       href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="./img/elpolloloco.png" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="./img/elpolloloco.png"/>
 
     <script src="./models/keyboard.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
@@ -40,18 +42,6 @@
     <script src="./js/game.js"></script>
   </head>
   <body>
-    <!-- Fullscreen-/Reloadbutton -->
-    <div class="mobileHeaderButtons" id="mobileHeaderButtons">
-      <button
-        onclick="makeFullscreen()"
-        class="fullscreenButton"
-        id="fullscreenicon"
-      ></button>
-      <button onclick="retry()" class="reloadButton" id="reloadButton"></button>
-      <button onclick="fullMute()" class="muteButton" id="muteButton"></button>
-    </div>
-    <!-- Fullscreen-/Reloadbutton End-->
-
     <!-- Mobile Playbuttons -->
     <div class="mobile-button-container" id="mobileButtonContainer">
       <div>
@@ -126,18 +116,31 @@
     <!-- Startscreen -->
     <div class="startscreen">
       <div class="gba-Screen" id="gbaScreen">
+        
+        <!-- Fullscreen-/Reloadbutton -->
+    <div class="mobileHeaderButtons" id="mobileHeaderButtons">
+      <button
+        onclick="makeFullscreen()"
+        class="fullscreenButton"
+        id="fullscreenicon"
+      ></button>
+      <button onclick="retry()" class="reloadButton" id="reloadButton"></button>
+      <button onclick="fullMute()" class="muteButton" id="muteButton"></button>
+    </div>
+    <!-- Fullscreen-/Reloadbutton End-->
+
         <div class="deathscreen" id="deathscreen">
           <img
             src="./img/cross.png"
             alt=""
             class="mobile-closecross"
-            onclick="reloadPage()"
+            onclick="retry()"
           />
           <img
             src="./img/cross.png"
             alt=""
             class="cross"
-            onclick="reloadPage()"
+            onclick="retry()"
           />
           <img class="deathimage" src="./img/losescreen.jpg" alt="" />
         </div>

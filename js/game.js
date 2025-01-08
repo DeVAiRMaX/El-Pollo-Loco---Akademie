@@ -53,11 +53,11 @@ function showVictoryScreen() {
     sounds.forEach(sound => {
         sound.muted = true;
     });
-    // victory_audio.play();
-    // victory_audio.volume = 0.1;
     ClearAllInterVals();
     gameFinish = true;
     world = null;
+
+    document.getElementById('mobileHeaderButtons').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('gbaScreen').style.display = 'flex';
     document.getElementById('victoryscreen').style.display = 'flex';
@@ -75,11 +75,10 @@ function showLoseScreen() {
     sounds.forEach(sound => {
         sound.muted = true;
     });
-    // lose_audio.play();
-    // lose_audio.volume = 0.1;
     gameFinish = true;
     ClearAllInterVals();
     world = null;
+    document.getElementById('mobileHeaderButtons').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('gbaScreen').style.display = 'flex';
     document.getElementById('deathscreen').style.display = 'flex';
@@ -121,6 +120,7 @@ function retry() {
         sound.currentTime = 0;
     });
     sounds = [];
+    document.getElementById('mobileHeaderButtons').style.display = "flex";
     document.getElementById('victoryscreen').style.display = 'none';
     document.getElementById('deathscreen').style.display = 'none';
     document.getElementById("canvas").style.display = "block";
@@ -311,6 +311,7 @@ function gameSettings() {
         let canvas = document.getElementById('canvas');
         let impressum = document.getElementById('impressumContainer');
         gbaScreen.style.display = "flex";
+        gbaScreen.style.height = "330px";
         settings.style.display = "flex";
         impressum.style.display = "none";
         canvas.style.display = "none";
@@ -343,11 +344,11 @@ function makeFullscreen() {
     const canvas = document.getElementById('canvas');
     if (canvas.requestFullscreen) {
         canvas.requestFullscreen();
-    } else if (canvas.mozRequestFullScreen) { // Firefox
+    } else if (canvas.mozRequestFullScreen) { 
         canvas.mozRequestFullScreen();
-    } else if (canvas.webkitRequestFullscreen) { // Chrome, Safari and Opera
+    } else if (canvas.webkitRequestFullscreen) { 
         canvas.webkitRequestFullscreen();
-    } else if (canvas.msRequestFullscreen) { // IE/Edge
+    } else if (canvas.msRequestFullscreen) { 
         canvas.msRequestFullscreen();
     }
 }
@@ -362,6 +363,7 @@ function closeSettings() {
     let gbaScreen = document.getElementById('gbaScreen');
     let settings = document.getElementById('settings');
     gbaScreen.style.display = "none";
+    gbaScreen.style.height = "auto";
     settings.style.display = "none";
     gameSetting = false;
 }
@@ -401,10 +403,12 @@ function toggleImpressum() {
 
     if (gbaScreen.style.display === "block" && impressumContainer.style.display === "flex") {
         gbaScreen.style.display = "none";
+        gbaScreen.style.height = "auto";
         impressumContainer.style.display = "none";
         settings.style.display = "none";
     } else {
         gbaScreen.style.display = "block";
+        gbaScreen.style.height = "330px";
         impressumContainer.style.display = "flex";
         settings.style.display = "none";
     }

@@ -71,7 +71,7 @@ class Endboss extends movableObject {
 
         this.x = 2000;
         this.y = 100;
-        this.speed = 10;
+        this.speed = 15;
 
         this.animate();
     }
@@ -90,12 +90,11 @@ class Endboss extends movableObject {
                 world.endfight_audio.pause();
                 this.endbossattack_audio.pause();
                 this.playEndbossDieSound();
-                
                 this.endbossDie();
             } else {
                 this.handleAnimationState();
             }
-        }, 1000 / 5);
+        }, 150);
     }
 
     playEndbossDieSound() {
@@ -115,7 +114,7 @@ class Endboss extends movableObject {
      */
     handleAnimationState() {
         if (this.isHurt()) {
-            this.handleHurtAnimation();
+            this.handleHurtAnimation()
         } else if (this.Endfight) {
             if (!this.endbossattack_audioAdded) {
                 sounds.push(this.endbossattack_audio);
@@ -141,8 +140,9 @@ class Endboss extends movableObject {
         this.playAnimation(this.IMAGES_HURT);
 
         setTimeout(() => {
-            this.Endfight = true; // Zurück in den Kampfmodus
-        }, 500); // Zeit in Millisekunden, die die Trefferanimation dauert
+            this.Endfight = true;
+        }, 150);
+
     }
 
 

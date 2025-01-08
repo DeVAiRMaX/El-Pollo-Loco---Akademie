@@ -16,17 +16,15 @@ class World {
     game_music = new Audio('audio/music.mp3');
     jump_on_chicken = new Audio('audio/jump_on_chicken.mp3');
     endfight_audio = new Audio('audio/endfight.mp3');
+    throw_audio = new Audio('audio/throw.mp3');
     JumpCollision = false;
 
-
-    /*************  ✨ Codeium Command ⭐  *************/
     /**
      * Initializes the world by setting up the canvas, drawing the world, setting
      * up the world objects, running the game loop, and starting the music.
      * @param {HTMLCanvasElement} canvas - The canvas element on which to draw the world.
      * @param {Keyboard} keyboard - The keyboard object to use for input.
      */
-    /******  226050b6-11d1-43bf-93d0-6cbc693229ca  *******/
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
         this.gameisrunning = true;
@@ -38,6 +36,8 @@ class World {
         this.checkBottleCollision();
         this.checkBossBottleCollision();
         this.playmusic();
+        sounds.push(this.endfight_audio);
+        sounds.push(this.throw_audio);
     }
 
     /**
@@ -74,7 +74,7 @@ class World {
      */
 
     run() {
-        setInterval(() => this.handleKeyboardActions(), 200);
+        setInterval(() => this.handleKeyboardActions(), 500);
         setInterval(() => this.handleCollisions(), 50);
     }
 
@@ -228,20 +228,6 @@ class World {
         });
     }
 
-    // every chicken only demages once! -->
-    // checkCollisions() {
-    //     this.level.enemies.forEach((enemy) => {
-    //         if (this.checkJumpCollision() && this.character.isInAboveGround()) {
-    //             return;
-    //         } else if (this.character.isColliding(enemy) && !enemy.alreadyHit) {
-    //             this.character.hit();
-    //             this.statusBar.setPercentage(this.character.energy);
-    //             enemy.alreadyHit = true; // Setze die Variable für das "hitten" auf true
-    //         }
-    //         console.log(this.character.energy);
-    //     });
-    // }
-
     /**
      * Checks for collisions between throwable bottles and enemies.
      * 
@@ -319,7 +305,10 @@ class World {
             console.log('No more bottles');
             return;
         } else {
+            this.character.bottleIsFlying = true;
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throw_audio.volume = 0.4;
+            this.throw_audio.play();
             this.ThrowableObject.push(bottle);
             this.character.BottlesAmmount--;
             this.bottleBar.setBottleAmmount(this.character.BottlesAmmount);

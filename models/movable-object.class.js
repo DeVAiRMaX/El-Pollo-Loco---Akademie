@@ -30,7 +30,7 @@ class movableObject extends DrawableObject {
         if (this.energy < 0) {
             this.energy = 0;
         } else {
-            this.lastHit = new Date().getTime(); //Speichern der aktuellen Zeit in Zahlenform
+            this.lastHit = new Date().getTime();
         }
     }
 
@@ -43,7 +43,7 @@ class movableObject extends DrawableObject {
         if (this.energy < 0) {
             this.energy = 0;
         } else {
-            this.lastHit = new Date().getTime(); //Speichern der aktuellen Zeit in Zahlenform
+            this.lastHit = new Date().getTime();
         }
     }
 
@@ -57,7 +57,7 @@ class movableObject extends DrawableObject {
      */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
-        timePassed = timePassed / 1000; // in Sekunden umrechnen
+        timePassed = timePassed / 1000;
         return timePassed < 1
     }
     isDead() {
@@ -88,10 +88,9 @@ class movableObject extends DrawableObject {
      * @returns {boolean} True if the object is above ground, false otherwise.
      */
     isInAboveGround() {
-        if (this instanceof ThrowableObject) { // ThrowableObject should always fall
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
-            // console.log(this.y);
             return this.y < 175;
         }
     }
@@ -125,7 +124,7 @@ class movableObject extends DrawableObject {
      * @param {string[]} images - An array of image paths to be used in the animation.
      */
     playAnimation(images) {
-        let i = this.currentImage % images.length; // % = Mathematischer Rest z.b.
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -163,7 +162,7 @@ class movableObject extends DrawableObject {
         this.x -= this.speed;
         setInterval(() => {
             this.jumpBossAttack();
-        }, 2000); // Every 2 seconds
+        }, 100);
     }
 
     /**
@@ -173,7 +172,7 @@ class movableObject extends DrawableObject {
     jumpBossAttack() {
         if (this.isInAboveGround()) {
             this.isJumping = true;
-            this.speedY = 50;
+            this.speedY = 100;
         }
     }
 

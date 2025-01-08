@@ -1,43 +1,49 @@
 .start-button {
+  background-color: transparent;
+  width: 115px;
+  height: 36px;
   font-size: 18px;
   font-weight: bold;
-  background-color: transparent;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
   position: relative;
-  right: 390px;
-  top: -302px;
+  right: 389px;
+  top: -318px;
   color: #b6d5ee;
   transform: rotate(14deg);
   text-shadow: 1px 1px 2px black;
-  transition: 0.1s;
+  padding: 0 20px 4px 0;
 }
 
 .start-button:hover {
-  color: #ebf6fc;
-  text-shadow: 1px 1px 2px black;
+  color: #ffd65d;
+  text-shadow: 0px 0px 6px #a34b08;
+  box-shadow: inset -33px 0 11px 0px rgba(0, 0, 0, 0.2);
 }
 
 .settings-button {
+  background-color: transparent;
+  width: 115px;
+  height: 36px;
   font-size: 18px;
   font-weight: bold;
-  background-color: transparent;
+  border-radius: 50px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   position: relative;
-  right: 405px;
-  top: -221px;
+  right: 391px;
+  top: -223px;
   color: #b6d5ee;
   transform: rotate(14deg);
   text-shadow: 1px 1px 2px black;
-  transition: 0.1s;
+  padding: 0 30px 2px 0;
 }
 
 .settings-button:hover {
-  color: #ebf6fc;
-  text-shadow: 1px 1px 2px black;
+  color: #ffd65d;
+  text-shadow: 0px 0px 6px #a34b08;
+  box-shadow: inset -33px 0 11px 0px rgba(0, 0, 0, 0.2);
 }
 .muteButton {
   display: flex;
@@ -81,381 +87,381 @@
 }
 
 .reloadButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    transition: 0.4s;
-  }
-  
-  .reloadButton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-  
-  .reloadButton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .reloadButton::before {
-    content: "\f021"; /* Font Awesome redo icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 26px;
-    color: white;
-  }
-  
-  .fullscreenButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    transition: 0.4s;
-  }
-  
-  .fullscreenButton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-  
-  .fullscreenButton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .fullscreenButton::before {
-    content: "\f065"; /* Font Awesome expand-arrows-alt icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 26px;
-    color: white;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  transition: 0.4s;
+}
 
-  .mobile-healbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.reloadButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
-  .mobile-healbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
+.reloadButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
 
-  .mobile-healbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-healbutton::before {
-    content: "\f479"; /* Font Awesome first aid kit icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  
-  .mobile-throwbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobile-throwbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-throwbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-throwbutton::before {
-    content: "\f72f"; /* Font Awesome wine bottle icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobileMuteButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .mobileMuteButton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobileMuteButton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobileMuteButton::before {
-    content: "\f027"; /* Font Awesome redo icon */
+.reloadButton::before {
+  content: "\f021"; /* Font Awesome redo icon */
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 26px;
   color: white;
-  }
-  .mobileMuteButton.active::before {
-    content: "\f026"; /* Font Awesome checked mute icon (durchgestrichenes Mute-Symbol) */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 26px;
-    color: white;
-  }
-  .mobile-restart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+}
 
-  .mobile-restart:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
+.fullscreenButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  transition: 0.4s;
+}
 
-  .mobile-restart:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
+.fullscreenButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
-  .mobile-restart::before {
-    content: "\f021"; /* Font Awesome redo icon */
+.fullscreenButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fullscreenButton::before {
+  content: "\f065"; /* Font Awesome expand-arrows-alt icon */
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 26px;
   color: white;
-  }
-  
-  .mobile-upbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+}
 
-  .mobile-upbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
+.mobile-healbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .mobile-upbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
+.mobile-healbutton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
-  .mobile-upbutton::before {
-    content: "\f062"; /* Font Awesome up arrow icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobile-leftbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.mobile-healbutton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
 
-  .mobile-leftbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
+.mobile-healbutton::before {
+  content: "\f479"; /* Font Awesome first aid kit icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 24px;
+  color: white;
+}
 
-  .mobile-leftbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
+.mobile-throwbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .mobile-leftbutton::before {
-    content: "\f060"; /* Font Awesome left arrow icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobile-rightbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.mobile-throwbutton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
-  .mobile-rightbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
+.mobile-throwbutton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
 
-  .mobile-rightbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
+.mobile-throwbutton::before {
+  content: "\f72f"; /* Font Awesome wine bottle icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 24px;
+  color: white;
+}
+.mobileMuteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .mobile-rightbutton::before {
-    content: "\f061"; /* Font Awesome right arrow icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 24px;
-    color: white;
-  }
-  .mobile-settingsbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.mobileMuteButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
-  .mobile-settingsbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
+.mobileMuteButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
 
-  .mobile-settingsbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
+.mobileMuteButton::before {
+  content: "\f027"; /* Font Awesome redo icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 26px;
+  color: white;
+}
+.mobileMuteButton.active::before {
+  content: "\f026"; /* Font Awesome checked mute icon (durchgestrichenes Mute-Symbol) */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 26px;
+  color: white;
+}
+.mobile-restart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .mobile-settingsbutton::before {
-    content: "\f013"; /* Font Awesome gear icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 28px;
-    color: white;
-  }
-  .mobile-startbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.mobile-restart:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
 
-  .mobile-startbutton:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
+.mobile-restart:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
 
-  .mobile-startbutton:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  }
+.mobile-restart::before {
+  content: "\f021"; /* Font Awesome redo icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 26px;
+  color: white;
+}
 
-  .mobile-startbutton::before {
-    content: "\f04b"; /* Font Awesome play icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 28px;
-    color: white;
-  }
+.mobile-upbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-upbutton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-upbutton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-upbutton::before {
+  content: "\f062"; /* Font Awesome up arrow icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 24px;
+  color: white;
+}
+.mobile-leftbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-leftbutton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-leftbutton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-leftbutton::before {
+  content: "\f060"; /* Font Awesome left arrow icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 24px;
+  color: white;
+}
+.mobile-rightbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-rightbutton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-rightbutton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-rightbutton::before {
+  content: "\f061"; /* Font Awesome right arrow icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 24px;
+  color: white;
+}
+.mobile-settingsbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-settingsbutton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-settingsbutton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-settingsbutton::before {
+  content: "\f013"; /* Font Awesome gear icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 28px;
+  color: white;
+}
+.mobile-startbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-startbutton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-startbutton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-startbutton::before {
+  content: "\f04b"; /* Font Awesome play icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 28px;
+  color: white;
+}
+.impressum-button {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.impressum-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.impressum-button::before {
+  content: "\f518";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 28px;
+  color: white;
+}
+
+@media only screen and (max-width: 1100px) {
   .impressum-button {
-    position: fixed;
-    right: 8px;
-    bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #fffa5f, #ff7308);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: none;
   }
-
-  .impressum-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .impressum-button::before {
-    content: "\f518";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 28px;
-    color: white;
-  }
-
-  @media only screen and (max-width: 1100px) {
-    .impressum-button {
-      display: none;
-  }
-  }
+}

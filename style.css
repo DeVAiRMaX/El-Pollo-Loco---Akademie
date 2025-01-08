@@ -8,6 +8,7 @@ body {
   flex-direction: column;
   align-items: center;
   background-image: url(./img/bg.jpg);
+  background-color: #1a1a1a;
   background-size: cover;
   height: 100vh;
   overflow: hidden;
@@ -24,14 +25,15 @@ body {
 
 .gba-Screen {
   width: 495px;
-  height: 330px;
+  /* height: 330px; */
   display: none;
   /* background-color: rgb(83, 83, 83); */
   border-radius: 4px;
   position: relative;
-  bottom: 592px;
+  bottom: 614px;
   right: 14px;
   z-index: 9;
+  flex-direction: column-reverse;
 }
 
 .settings {
@@ -104,9 +106,9 @@ body {
 
 .mobileHeaderButtons {
   display: none;
-  position: fixed;
-  bottom: 8px;
-  right: 8px;
+  position: relative;
+  bottom: -12px;
+  right: -134px;
   gap: 4px;
 }
 
@@ -151,6 +153,10 @@ body {
 }
 
 @media only screen and (max-height: 770px) {
+  .closecross {
+    top: 25px !important;
+    left: 180px !important;
+}
   .cross {
     position: fixed;
     top: 8px !important;
@@ -158,25 +164,30 @@ body {
     left: unset !important;
   }
   .gba-Screen {
-    position: unset;
+    width: 427px;
+    bottom: 541px;
+    height: 286px !important;
   }
   canvas {
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 9;
   }
   .settings-button {
-    right: 347px;
-    top: -190px;
-    font-size: 16px;
+    right: 342px;
+    top: -194px;
+    font-size: 15px;
+    padding: 0 9px 6px 0;
   }
   .start-button {
-    right: 336px;
-    top: -258px;
-    font-size: 16px;
+    width: 110px;
+    right: 332px;
+    top: -278px;
+    font-size: 15px;
+    padding: 0 20px 7px 0;
   }
   body {
     margin: 0;

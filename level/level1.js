@@ -44,6 +44,8 @@ function initLevel() {
             new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 350),
             new Bottle('img/6_salsa_bottle/salsa_bottle.png', 350),
             new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 350),
+            new Bottle('img/6_salsa_bottle/salsa_bottle.png', 350),
+            new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 350),
         ],
         [
             new clouds('img/5_background/layers/4_clouds/1.png'),
