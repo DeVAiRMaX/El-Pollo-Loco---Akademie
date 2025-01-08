@@ -10,6 +10,7 @@ class chicken extends movableObject {
     IMAGES_DEAD = [
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png',
     ];
+    alreadyHit = false;
     
     /**
      * Constructor for chicken

@@ -6,8 +6,7 @@ let gameSetting = false;
 let gameFinish = false;
 let sounds = [];
 let muted = false;
-let victory_audio = new Audio('audio/victory.mp3');
-let lose_audio = new Audio('audio/lose.mp3');
+
 
 setInterval(() => {
     isScreenWidthLessThan1000();
@@ -54,8 +53,8 @@ function showVictoryScreen() {
     sounds.forEach(sound => {
         sound.muted = true;
     });
-    victory_audio.play();
-    victory_audio.volume = 0.1;
+    // victory_audio.play();
+    // victory_audio.volume = 0.1;
     ClearAllInterVals();
     gameFinish = true;
     world = null;
@@ -76,8 +75,8 @@ function showLoseScreen() {
     sounds.forEach(sound => {
         sound.muted = true;
     });
-    lose_audio.play();
-    lose_audio.volume = 0.1;
+    // lose_audio.play();
+    // lose_audio.volume = 0.1;
     gameFinish = true;
     ClearAllInterVals();
     world = null;
@@ -117,6 +116,10 @@ function fullMute() {
  * Clears all intervals, and calls the initLevel and init functions to reset the game state.
  */
 function retry() {
+    sounds.forEach(sound => {
+        sound.pause();
+        sound.currentTime = 0;
+    });
     sounds = [];
     document.getElementById('victoryscreen').style.display = 'none';
     document.getElementById('deathscreen').style.display = 'none';

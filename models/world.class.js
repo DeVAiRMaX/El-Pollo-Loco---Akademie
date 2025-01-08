@@ -16,6 +16,7 @@ class World {
     game_music = new Audio('audio/music.mp3');
     jump_on_chicken = new Audio('audio/jump_on_chicken.mp3');
     endfight_audio = new Audio('audio/endfight.mp3');
+    JumpCollision = false;
 
 
     /*************  ✨ Codeium Command ⭐  *************/
@@ -166,7 +167,6 @@ class World {
     isCharacterJumpingOnEnemy(enemy) {
         return this.character.isColliding(enemy) &&
             this.character.isInAboveGround() &&
-            this.character.isJumping &&
             this.character.speedY < 0;
     }
 
@@ -197,31 +197,50 @@ class World {
      * @param {number} characterY The y position of the character. This is used to set the y position of the character after jumping.
      */
     collisionsJumpAttack(index, characterY) {
-        this.level.enemies[index].jumpDemage(this.character);
+        this.level.enemies[index].jumpDemage();
         this.level.enemies[index].isHurt();
         this.character.jumpAgain(characterY);
     }
 
     /**
-     * Checks for collisions between the character and all enemies in the level.
+     * Checks for collisions between the character and enemies in the level.
      * 
-     * Loops through all enemies in the level and checks if the character is
-     * colliding with them. If the character is colliding with an enemy, the
-     * character is hit and the character's energy is reduced. If the character's
-     * energy reaches 0, the character is killed. The method also returns true
-     * if the character is jumping on an enemy, false otherwise.
-     * @returns {boolean} True if the character is jumping on an enemy, false otherwise.
+     * Iterates through all enemies and checks if the character is jumping on them
+     * using the `checkJumpCollision` method. If the character is jumping on an enemy,
+     * returns early to avoid further collision checks.
+     * 
+     * If the character is colliding with an enemy and has not been hit in the last 500ms,
+     * the character's `hit` method is called to reduce its energy and the last hit time is updated.
+     * The status bar is also updated to reflect the character's current energy.
      */
+
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.checkJumpCollision()) {
+            if (this.checkJumpCollision() && this.character.isInAboveGround()) {
                 return;
             } else if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                if (this.lastHitTime === undefined || Date.now() - this.lastHitTime >= 250) {
+                    this.character.hit();
+                    this.lastHitTime = Date.now();
+                    this.statusBar.setPercentage(this.character.energy);
+                }
             }
         });
     }
+
+    // every chicken only demages once! -->
+    // checkCollisions() {
+    //     this.level.enemies.forEach((enemy) => {
+    //         if (this.checkJumpCollision() && this.character.isInAboveGround()) {
+    //             return;
+    //         } else if (this.character.isColliding(enemy) && !enemy.alreadyHit) {
+    //             this.character.hit();
+    //             this.statusBar.setPercentage(this.character.energy);
+    //             enemy.alreadyHit = true; // Setze die Variable für das "hitten" auf true
+    //         }
+    //         console.log(this.character.energy);
+    //     });
+    // }
 
     /**
      * Checks for collisions between throwable bottles and enemies.

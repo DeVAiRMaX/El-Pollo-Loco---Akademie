@@ -10,6 +10,7 @@ class Smallchicken extends movableObject {
     IMAGES_DEAD = [
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
     ];
+    alreadyHit = false;
 
     /**
      * Creates an instance of Smallchicken.

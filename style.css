@@ -202,19 +202,19 @@ body {
   }
 }
 /* Smartphone */
-@media only screen and (max-width: 1000px) {
-  .start-button {
+@media only screen and (max-width: 990px) {
+  /* .start-button {
     display: none;
   }
   .settings-button {
     display: none;
   }
   .gba-Screen {
-    position: unset;
-  }
-  /* .gba {
-    display: none;
+    bottom: 546px;
   } */
+  .gba {
+    display: none;
+  }
 }
 
 @media only screen and (max-height: 480px) {

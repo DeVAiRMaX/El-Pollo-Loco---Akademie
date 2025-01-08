@@ -17,7 +17,7 @@ class movableObject extends DrawableObject {
      * Handles the character jumping on the enemy and deducts energy from the enemy. If the enemy's energy reaches 0, the enemy is killed.
      * @param {Object} enemy The enemy object to be attacked
      */
-    jumpDemage(enemy) {
+    jumpDemage() {
         this.energy -= 100;
     }
 

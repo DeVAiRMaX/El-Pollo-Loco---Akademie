@@ -72,6 +72,7 @@ class Character extends movableObject {
     isJumping = true;
     groundLevel = 70;
     afkTimer = 0;
+    lose_audio = new Audio('audio/lose.mp3');
 
     /**
      * Creates a new instance of the character.
@@ -95,6 +96,7 @@ class Character extends movableObject {
         this.offset = { left: 32, right: 32, top: 90, bottom: 15 };
         this.applyGravity();
     }
+
 
     /**
      * Animates the character by setting audio volumes, handling AFK state, 
@@ -143,6 +145,7 @@ class Character extends movableObject {
         this.throw_audio.volume = 0.4;
         this.hurt_audio.volume = 0.4;
         this.snoring_audio.volume = 0.4;
+        this.lose_audio.volume = 0.4;
     }
 
     /**
@@ -214,7 +217,7 @@ class Character extends movableObject {
      */
     setupAnimationInterval() {
         setInterval(() => {
-            if (this.isDead()) this.charakterDie();
+            if (this.isDead()) this.playDieSound(), this.charakterDie();
             else if (this.afkTimer >= 10) this.playSleepAnimation();
             else {
                 this.stopSleepAnimation();
@@ -224,6 +227,10 @@ class Character extends movableObject {
                 else this.playStandAnimation();
             }
         }, 150);
+    }
+
+    playDieSound() {
+        this.lose_audio.play();
     }
 
     /**
@@ -259,7 +266,7 @@ class Character extends movableObject {
     playHurtAnimation() {
         this.playAnimation(this.IMAGES_HURT);
         this.hurt_audio.play();
-        sounds.push(this.hurt_audio);
+        // sounds.push(this.hurt_audio);
     }
 
     /**

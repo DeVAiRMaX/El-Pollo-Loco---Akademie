@@ -43,6 +43,9 @@ class Endboss extends movableObject {
     Endfight = false;
     isJumping = false;
     endbossattack_audio = new Audio('audio/endbossattack.mp3');
+    victory_audio = new Audio('audio/victory.mp3');
+    endbossattack_audioAdded = false;
+    endbossIsDead = false;
 
     /**
      * Constructor for the endboss.
@@ -81,14 +84,23 @@ class Endboss extends movableObject {
      * The interval runs every 200ms.
      */
     animate() {
-        this.intervalBossId = setInterval(() => {
+        setInterval(() => {
             if (this.isDead()) {
+                this.endbossIsDead = true;
+                world.endfight_audio.pause();
                 this.endbossattack_audio.pause();
+                this.playEndbossDieSound();
+                
                 this.endbossDie();
             } else {
                 this.handleAnimationState();
             }
         }, 1000 / 5);
+    }
+
+    playEndbossDieSound() {
+        this.victory_audio.play();
+        this.victory_audio.volume = 0.4;
     }
 
 
@@ -105,10 +117,13 @@ class Endboss extends movableObject {
         if (this.isHurt()) {
             this.handleHurtAnimation();
         } else if (this.Endfight) {
-            this.endbossattack_audio.loop = true;
-            this.endbossattack_audio.volume = 0.5;
-            this.endbossattack_audio.play();
-            sounds.push(this.endbossattack_audio);
+            if (!this.endbossattack_audioAdded) {
+                sounds.push(this.endbossattack_audio);
+                this.endbossattack_audio.loop = true;
+                this.endbossattack_audio.volume = 0.5;
+                this.endbossattack_audio.play();
+                this.endbossattack_audioAdded = true;
+            }
             this.endBossFight();
             this.playAnimation(this.IMAGES_ATTACK);
         } else {
@@ -139,7 +154,7 @@ class Endboss extends movableObject {
     endbossDie() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_DEAD);
-        }, 1000 / 10);
+        }, 1000 / 15);
         setTimeout(() => {
             showVictoryScreen();
         }, 1000);
