@@ -10,6 +10,7 @@ let muted = false;
 
 setInterval(() => {
     isScreenWidthLessThan1000();
+    restoreMuteStatus();
 }, 10);
 
 
@@ -156,12 +157,12 @@ function toggleDisplay(elementId, displayStyle) {
     document.getElementById(elementId).style.display = displayStyle;
 }
 
+
 /**
- * Resets the game state by clearing intervals, hiding the death and victory screens, making the canvas visible, and reinitializing the game components.
- * 
- * Also resets the sound state by pausing all sounds and resetting their playback positions.
- * Furthermore, it shows the mute and fullscreen buttons and conditionally shows the mobile button container.
- * Finally, it restarts the game by initializing the game level and its components.
+ * Resets the game state and restarts the game.
+ *
+ * Called when the player dies or completes a level. Resets the sound objects, toggles
+ * the display of certain elements, and calls initLevel() and init() to restart the game.
  */
 function retry() {
     windowHeight = window.innerHeight;
@@ -194,108 +195,6 @@ function ClearAllInterVals() {
         window.clearInterval(i);
     }
 }
-
-/**
- * handles the functions of the touchbuttons.
- */
-window.addEventListener("touchstart", (event) => {
-    if (event.target.id === 'mobileRightButton') {
-        event.preventDefault();
-        keyboard.RIGHT = true;
-    }
-    if (event.target.id === 'mobileLeftButton') {
-        event.preventDefault();
-        keyboard.LEFT = true;
-    }
-    if (event.target.id === 'mobileUpButton') {
-        event.preventDefault();
-        keyboard.UP = true;
-    }
-    if (event.target.id === 'mobileThrowButton') {
-        event.preventDefault();
-        keyboard.D = true;
-    }
-    if (event.target.id === 'mobileHealButton') {
-        event.preventDefault();
-        keyboard.C = true;
-    }
-});
-
-window.addEventListener("touchend", (event) => {
-    if (event.target.id === 'mobileRightButton') {
-        event.preventDefault();
-        keyboard.RIGHT = false;
-    }
-    if (event.target.id === 'mobileLeftButton') {
-        event.preventDefault();
-        keyboard.LEFT = false;
-    }
-    if (event.target.id === 'mobileUpButton') {
-        event.preventDefault();
-        keyboard.UP = false;
-    }
-    if (event.target.id === 'mobileThrowButton') {
-        event.preventDefault();
-        keyboard.D = false;
-    }
-    if (event.target.id === 'mobileHealButton') {
-        event.preventDefault();
-        keyboard.C = false;
-    }
-});
-
-/**
-* handles the functions keybuttons.
-*/
-
-window.addEventListener("keydown", (key) => {
-    if (key.keyCode == 67) {
-        keyboard.C = true;
-    }
-    if (key.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
-    if (key.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
-    if (key.keyCode == 38) {
-        keyboard.UP = true;
-    }
-    if (key.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-    if (key.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-    if (key.keyCode == 68) {
-        keyboard.D = true;
-    }
-});
-
-window.addEventListener("keyup", (key) => {
-    if (key.keyCode == 67) {
-        keyboard.C = false;
-    }
-    if (key.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-    if (key.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
-    if (key.keyCode == 38) {
-        keyboard.UP = false;
-    }
-    if (key.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
-    if (key.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-    if (key.keyCode == 68) {
-        keyboard.D = false;
-    }
-});
-
 
 /**
  * Starts the game by setting up the display and initializing game components.
@@ -443,12 +342,10 @@ function reloadPage() {
 }
 
 /**
- * Toggles the display of the Impressum and the GBA screen.
- * 
- * Checks if the GBA screen is currently visible and the Impressum container is visible.
- * If so, hides the GBA screen and Impressum container, and hides the settings element.
- * Otherwise, shows the GBA screen and Impressum container, and hides the settings element.
- * 
+ * Toggles the display of the game's impressum (legal information) on mobile devices.
+ * If the impressum is currently displayed, this function hides it and shows the mobile
+ * header buttons. If the impressum is not displayed, it shows the impressum and hides
+ * the mobile header buttons.
  */
 function toggleImpressum() {
     let gbaScreen = document.getElementById('gbaScreen');

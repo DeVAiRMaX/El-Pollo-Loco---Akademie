@@ -76,11 +76,6 @@ class Character extends movableObject {
 
     /**
      * Creates a new instance of the character.
-     * @constructor
-     * @this {Character}
-     * @param {World} world The world the character will be in.
-     * @param {number} x The x position of the character.
-     * @param {number} y The y position of the character.
      */
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
@@ -96,7 +91,6 @@ class Character extends movableObject {
         sounds.push(this.jump_audio);
         sounds.push(this.snoring_audio);
         sounds.push(this.lose_audio);
-
 
         this.individualCounter = 0;
         this.animate();
@@ -232,10 +226,6 @@ class Character extends movableObject {
                 else this.playStandAnimation();
             }
         }, 150);
-    }
-
-    playDieSound() {
-        this.lose_audio.play();
     }
 
     /**
