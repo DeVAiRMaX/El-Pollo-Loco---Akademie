@@ -159,7 +159,8 @@ class movableObject extends DrawableObject {
      * causing the boss to perform a jumping attack.
      */
     endBossFight() {
-        this.x -= this.speed;
+        this.x -= 20;
+        this.playAnimation(this.IMAGES_ATTACK);
         setInterval(() => {
             this.jumpBossAttack();
         }, 100);
@@ -172,7 +173,7 @@ class movableObject extends DrawableObject {
     jumpBossAttack() {
         if (this.isInAboveGround()) {
             this.isJumping = true;
-            this.speedY = 100;
+            
         }
     }
 

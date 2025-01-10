@@ -119,13 +119,16 @@
         
         <!-- Fullscreen-/Reloadbutton -->
     <div class="mobileHeaderButtons" id="mobileHeaderButtons">
+      <button onclick="reloadPage()" class="menuButton" id="menuButton"></button>
+      <button onclick="retry()" class="reloadButton" id="reloadButton"></button>
       <button
         onclick="makeFullscreen()"
         class="fullscreenButton"
         id="fullscreenicon"
       ></button>
-      <button onclick="retry()" class="reloadButton" id="reloadButton"></button>
+      
       <button onclick="fullMute()" class="muteButton" id="muteButton"></button>
+      
     </div>
     <!-- Fullscreen-/Reloadbutton End-->
 
@@ -134,13 +137,13 @@
             src="./img/cross.png"
             alt=""
             class="mobile-closecross"
-            onclick="retry()"
+            onclick="reloadPage()"
           />
           <img
             src="./img/cross.png"
             alt=""
             class="cross"
-            onclick="retry()"
+            onclick="reloadPage()"
           />
           <img class="deathimage" src="./img/losescreen.jpg" alt="" />
         </div>

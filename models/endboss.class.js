@@ -46,6 +46,7 @@ class Endboss extends movableObject {
     victory_audio = new Audio('audio/victory.mp3');
     endbossattack_audioAdded = false;
     endbossIsDead = false;
+    lastHit = false;
 
     /**
      * Constructor for the endboss.
@@ -57,6 +58,7 @@ class Endboss extends movableObject {
         super().loadImage(this.IMAGES_ALERT[0]);
 
         sounds.push(this.endbossattack_audio);
+        sounds.push(this.victory_audio);
 
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
@@ -89,7 +91,6 @@ class Endboss extends movableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.endbossIsDead = true;
-                world.endfight_audio.pause();
                 this.endbossattack_audio.pause();
                 this.playEndbossDieSound();
                 this.endbossDie();
@@ -115,8 +116,11 @@ class Endboss extends movableObject {
      * If neither condition is met, it defaults to the alert animation.
      */
     handleAnimationState() {
-        if (this.isHurt()) {
-            this.handleHurtAnimation()
+        if (this.isHurt() && this.lastHit) {
+            if (this.Endfight) {
+                this.x -= this.speed;
+            }
+            this.handleHurtAnimation();
         } else if (this.Endfight) {
             if (!this.endbossattack_audioAdded) {
                 this.endbossattack_audio.loop = true;
@@ -125,7 +129,6 @@ class Endboss extends movableObject {
                 this.endbossattack_audioAdded = true;
             }
             this.endBossFight();
-            this.playAnimation(this.IMAGES_ATTACK);
         } else {
             this.playAnimation(this.IMAGES_ALERT);
         }
@@ -141,8 +144,9 @@ class Endboss extends movableObject {
         this.playAnimation(this.IMAGES_HURT);
 
         setTimeout(() => {
+            this.lastHit = false;
             this.Endfight = true;
-        }, 150);
+        }, 300);
 
     }
 
@@ -156,11 +160,11 @@ class Endboss extends movableObject {
         setInterval(() => {
             this.playAnimation(this.IMAGES_DEAD);
         }, 1000 / 15);
+        resetSounds();
         setTimeout(() => {
             showVictoryScreen();
         }, 1000);
     }
-
 
     /**
      * Starts moving the endboss to the left at a speed of 10 pixels per frame.

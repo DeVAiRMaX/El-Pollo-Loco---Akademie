@@ -45,6 +45,38 @@
   text-shadow: 0px 0px 6px #a34b08;
   box-shadow: inset -33px 0 11px 0px rgba(0, 0, 0, 0.2);
 }
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #fffa5f, #ff7308);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.menuButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menuButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.menuButton::before {
+  content: "\f060";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 26px;
+  color: white;
+}
 .muteButton {
   display: flex;
   align-items: center;
@@ -438,10 +470,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
+  /* width: 60px; */
   height: 60px;
   background: linear-gradient(135deg, #fffa5f, #ff7308);
-  border-radius: 50%;
+  /* border-radius: 50%; */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -453,15 +485,32 @@
 }
 
 .impressum-button::before {
-  content: "\f518";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+  content: "impressum";
+  font-family: "Bangers", serif;
+  font-weight: 400;
   font-size: 28px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 @media only screen and (max-width: 1100px) {
   .impressum-button {
     display: none;
+  }
+
+  @media only screen and (max-height: 770px) {
+    .menuButton {
+      width: 50px;
+      height: 50px;
+    }
+    .menuButton::before {
+      font-size: 24px;
+  }
+    .reloadButton {
+      width: 50px;
+      height: 50px;
+    }
+    .reloadButton::before {
+      font-size: 24px;
+  }
   }
 }

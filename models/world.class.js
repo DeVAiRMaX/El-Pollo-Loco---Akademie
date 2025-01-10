@@ -27,6 +27,13 @@ class World {
      */
     constructor(canvas, keyboard) {
         this.keyboard = keyboard;
+
+        sounds.push(this.jump_on_chicken);
+        sounds.push(this.throw_audio);
+        sounds.push(this.endfight_audio);
+        sounds.push(this.game_music);
+
+
         this.gameisrunning = true;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -36,8 +43,6 @@ class World {
         this.checkBottleCollision();
         this.checkBossBottleCollision();
         this.playmusic();
-        sounds.push(this.endfight_audio);
-        sounds.push(this.throw_audio);
     }
 
     /**
@@ -51,7 +56,6 @@ class World {
             this.game_music.loop = true;
             this.game_music.play();
             this.game_music.volume = 0.1;
-            sounds.push(this.game_music);
         } else {
             return;
         }
@@ -129,7 +133,6 @@ class World {
                     this.endfight_audio.loop = true;
                     this.endfight_audio.volume = 0.1;
                     this.endfight_audio.play();
-                    sounds.push(this.endfight_audio);
                     endboss.Endfight = true;
                 }
             });
@@ -267,6 +270,7 @@ class World {
                 this.level.enemies.splice(enemyIndex, 1);
             }, 500);
         } else {
+            enemy.lastHit = true;
             enemy.bottleHit(enemy.energy);
             this.bossBar.setBossPercentage(enemy.energy);
             this.checkCharakterEndbossFight();
@@ -302,7 +306,6 @@ class World {
      */
     checkThrowObject() {
         if (this.character.BottlesAmmount <= 0) {
-            console.log('No more bottles');
             return;
         } else {
             this.character.bottleIsFlying = true;

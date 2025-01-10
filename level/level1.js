@@ -11,14 +11,19 @@ let level1;
  */
 function initLevel() {
 
+    const chickenSpacing = (1800 - 300) / (5 + 2);
+
     level1 = new Level(
         [
-            new chicken(450),
-            new Smallchicken(650),
-            new chicken(850),
-            new Smallchicken(1200),
-            new chicken(1800),
-            new Smallchicken(1500),
+            new chicken(),
+            new Smallchicken(),
+            new chicken(),
+            new Smallchicken(),
+            new chicken(),
+            new Smallchicken(),
+            new chicken(),
+            new Smallchicken(),
+            new chicken(),
             new Endboss()
         ],
         [
@@ -42,8 +47,6 @@ function initLevel() {
             new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 350),
             new Bottle('img/6_salsa_bottle/salsa_bottle.png', 350),
             new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 350),
-            new Bottle('img/6_salsa_bottle/salsa_bottle.png', 350),
-            new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 350),
             new Bottle('img/6_salsa_bottle/salsa_bottle.png', 350),
             new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 350),
         ],

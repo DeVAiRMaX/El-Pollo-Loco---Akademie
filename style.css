@@ -105,11 +105,15 @@ body {
 }
 
 .mobileHeaderButtons {
-  display: none;
+  width: 100%;
+  display: flex;
   position: relative;
-  bottom: -12px;
-  right: -134px;
+  bottom: 0px;
+  right: 0px;
   gap: 4px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
 }
 
 .impressumContainer {
@@ -151,12 +155,26 @@ body {
   z-index: 9;
   cursor: pointer;
 }
-
+@media only screen and (max-height: 770px) {
+  .mobileHeaderButtons {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 8px;
+    z-index: 1;
+  }
+}
 @media only screen and (max-height: 770px) {
   .closecross {
     top: 25px !important;
     left: 180px !important;
-}
+  }
   .cross {
     position: fixed;
     top: 8px !important;

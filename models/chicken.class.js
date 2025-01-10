@@ -17,10 +17,10 @@ class chicken extends movableObject {
      * @param {number} x - The x position of the chicken.
      */
 
-    constructor(x) {
+    constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
 
-        this.x = x;
+        this.x = 300 + Math.random() * 1800;
         this.speed = 0.15 + Math.random() * 0.5;
 
         this.loadImages(this.IMAGES_WALKING);

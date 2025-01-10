@@ -24,9 +24,11 @@ function isScreenWidthLessThan1000() {
     if (window.innerWidth < 1000) {
         document.getElementById('rotateScreen').style.display = 'flex';
         document.getElementById('gbagif').style.display = 'none';
+        return true;
     } else {
         document.getElementById('rotateScreen').style.display = 'none';
         document.getElementById('gbagif').style.display = 'block';
+        return false;
     }
 }
 
@@ -40,6 +42,7 @@ function isScreenWidthLessThan1000() {
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    restoreMuteStatus();
 }
 
 /**
@@ -50,14 +53,12 @@ function init() {
  * Displays the victory screen and gba screen.
  */
 function showVictoryScreen() {
-    sounds.forEach(sound => {
-        sound.muted = true;
-    });
+
     ClearAllInterVals();
     gameFinish = true;
     world = null;
-
-    document.getElementById('mobileHeaderButtons').style.display = 'none';
+    document.getElementById('muteButton').style.display = 'none';
+    document.getElementById('fullscreenicon').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('gbaScreen').style.display = 'flex';
     document.getElementById('victoryscreen').style.display = 'flex';
@@ -72,13 +73,11 @@ function showVictoryScreen() {
  * and mobile buttons. Displays the death screen and gba screen.
  */
 function showLoseScreen() {
-    sounds.forEach(sound => {
-        sound.muted = true;
-    });
     gameFinish = true;
     ClearAllInterVals();
     world = null;
-    document.getElementById('mobileHeaderButtons').style.display = 'none';
+    document.getElementById('muteButton').style.display = 'none';
+    document.getElementById('fullscreenicon').style.display = 'none';
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('gbaScreen').style.display = 'flex';
     document.getElementById('deathscreen').style.display = 'flex';
@@ -86,11 +85,12 @@ function showLoseScreen() {
 }
 
 /**
- * Toggles the mute state of all sounds and updates the visual state of the mute buttons.
+ * Toggles the mute status of all sounds and updates the visual state of the mute buttons.
  *
- * Iterates over all sound objects and toggles their mute state. Also sets the global muted variable
- * to the current state of the last sound object. Then updates the class of the mute button and the
- * mobile mute button to reflect the current state.
+ * Iterates over all sound objects and toggles their mute state. It then updates the class
+ * list of the mute button and the mobile mute button accordingly to reflect the new
+ * mute status. Finally, it sets the global muted variable to the current state and
+ * stores the mute status in localStorage.
  */
 function fullMute() {
     sounds.forEach(sound => {
@@ -98,32 +98,86 @@ function fullMute() {
         muted = sound.muted;
     });
     const muteButton = document.getElementById('muteButton');
+    const mobileMuteButton = document.getElementById('mobileMuteButton');
 
     if (muted) {
         muteButton.classList.add('active');
         mobileMuteButton.classList.add('active');
+        localStorage.setItem('muteStatus', 'true');
     } else {
         muteButton.classList.remove('active');
         mobileMuteButton.classList.remove('active');
+        localStorage.setItem('muteStatus', 'false');
     }
 }
 
 /**
- * Resets the game state to the starting state.
- * 
- * Removes all current sounds, hides the victory and death screens, and shows the canvas element.
- * Clears all intervals, and calls the initLevel and init functions to reset the game state.
+ * Restores the mute status of all sounds from localStorage and updates the visual state of the mute buttons.
+ *
+ * Gets the current mute status from localStorage and adds or removes the 'active' class
+ * from the mute button and the mobile mute button accordingly. It then iterates over all sound objects
+ * and sets their mute state to the current status. Finally, it sets the global muted variable
+ * to the current state.
  */
-function retry() {
+function restoreMuteStatus() {
+    const muteStatus = localStorage.getItem('muteStatus');
+    const muteButton = document.getElementById('muteButton');
+    const mobileMuteButton = document.getElementById('mobileMuteButton');
+
+    if (muteStatus === 'true') {
+        muteButton.classList.add('active');
+        mobileMuteButton.classList.add('active');
+        sounds.forEach(sound => {
+            sound.muted = true;
+        });
+        muted = true;
+    }
+}
+
+/**
+ * Resets all sound objects by pausing them and setting their playback position to 0.
+ * Clears the sounds array.
+ */
+function resetSounds() {
     sounds.forEach(sound => {
         sound.pause();
         sound.currentTime = 0;
     });
     sounds = [];
-    document.getElementById('mobileHeaderButtons').style.display = "flex";
-    document.getElementById('victoryscreen').style.display = 'none';
-    document.getElementById('deathscreen').style.display = 'none';
-    document.getElementById("canvas").style.display = "block";
+}
+
+/**
+ * Toggles the display of an element with the given element ID.
+ * 
+ * @param {string} elementId The ID of the element to toggle the display for.
+ * @param {string} displayStyle The display style to set the element to, e.g. 'block', 'flex', 'none', etc.
+ */
+function toggleDisplay(elementId, displayStyle) {
+    document.getElementById(elementId).style.display = displayStyle;
+}
+
+/**
+ * Resets the game state by clearing intervals, hiding the death and victory screens, making the canvas visible, and reinitializing the game components.
+ * 
+ * Also resets the sound state by pausing all sounds and resetting their playback positions.
+ * Furthermore, it shows the mute and fullscreen buttons and conditionally shows the mobile button container.
+ * Finally, it restarts the game by initializing the game level and its components.
+ */
+function retry() {
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
+    if (windowWidth < 1400 || windowHeight < 800) {
+        startMobileGame();
+        return;
+    }
+    resetSounds();
+    toggleDisplay('muteButton', 'flex');
+    toggleDisplay('fullscreenicon', 'flex');
+    toggleDisplay('mobileButtonContainer', isScreenWidthLessThan1000() ? 'flex' : 'none');
+    toggleDisplay('mobileHeaderButtons', 'flex');
+    toggleDisplay('victoryscreen', 'none');
+    toggleDisplay('deathscreen', 'none');
+    toggleDisplay('canvas', 'block');
     ClearAllInterVals();
     initLevel();
     init();
@@ -270,6 +324,7 @@ function startGame() {
     document.getElementById('impressumButton').style.display = "none";
     initLevel();
     init();
+    restoreMuteStatus();
 }
 
 
@@ -281,11 +336,8 @@ function startGame() {
  * Sets the game status to true, makes the mobile button container, GBA screen, and canvas visible, and initializes the game level and components.
  */
 function startMobileGame() {
-    if (gameStatus) {
-        alert('Spiel läuft bereits!')
-        return;
-    }
     gameStatus = true;
+    document.getElementById('mobileHeaderButtons').style.display = "none";
     document.getElementById('mobileButtonContainer').style.display = "flex";
     document.getElementById('gbaScreen').style.display = "flex";
     document.getElementById('canvas').style.display = "block";
@@ -306,10 +358,12 @@ function gameSettings() {
         return;
     } else {
         gameSetting = true;
+        let mobileHeaderButtons = document.getElementById('mobileHeaderButtons');
         let gbaScreen = document.getElementById('gbaScreen');
         let settings = document.getElementById('settings');
         let canvas = document.getElementById('canvas');
         let impressum = document.getElementById('impressumContainer');
+        mobileHeaderButtons.style.display = "none";
         gbaScreen.style.display = "flex";
         gbaScreen.style.height = "330px";
         settings.style.display = "flex";
@@ -400,15 +454,18 @@ function toggleImpressum() {
     let gbaScreen = document.getElementById('gbaScreen');
     let impressumContainer = document.getElementById('impressumContainer');
     let settings = document.getElementById('settings');
+    let mobileHeaderButtons = document.getElementById('mobileHeaderButtons');
 
     if (gbaScreen.style.display === "block" && impressumContainer.style.display === "flex") {
         gbaScreen.style.display = "none";
         gbaScreen.style.height = "auto";
         impressumContainer.style.display = "none";
         settings.style.display = "none";
+        mobileHeaderButtons.style.display = "flex";
     } else {
         gbaScreen.style.display = "block";
         gbaScreen.style.height = "330px";
+        mobileHeaderButtons.style.display = "none";
         impressumContainer.style.display = "flex";
         settings.style.display = "none";
     }

@@ -95,6 +95,8 @@ class Character extends movableObject {
         sounds.push(this.hurt_audio);
         sounds.push(this.jump_audio);
         sounds.push(this.snoring_audio);
+        sounds.push(this.lose_audio);
+
 
         this.individualCounter = 0;
         this.animate();
@@ -323,6 +325,7 @@ class Character extends movableObject {
      * Initiates the character's death animation by starting a short jump and then animating the death.
      */
     charakterDie() {
+        resetSounds();
         this.initiateDeathJump();
         this.animateDeath();
     }
