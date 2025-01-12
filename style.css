@@ -195,25 +195,25 @@ body {
     z-index: 9;
   }
   .settings-button {
-    right: 342px;
-    top: -194px;
+    /* right: 342px; */
+    /* top: -194px; */
     font-size: 15px;
     padding: 0 9px 6px 0;
   }
   .start-button {
     width: 110px;
-    right: 332px;
-    top: -278px;
+    /* right: 332px; */
+    /* top: -278px; */
     font-size: 15px;
     padding: 0 20px 7px 0;
   }
-  body {
+  /* body {
     margin: 0;
     align-items: flex-start;
-  }
+  } */
 
   .gba {
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
   }
   .mobile-Startscreen {

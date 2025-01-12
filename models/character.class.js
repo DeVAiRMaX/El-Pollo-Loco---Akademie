@@ -207,6 +207,14 @@ class Character extends movableObject {
     }
 
     /**
+     * Plays the audio when the character dies.
+     * The audio's volume is set to 0.4.
+     */
+    playDieSound() {
+        this.lose_audio.play();
+    }
+
+    /**
      * Sets up an interval to handle character animations based on the character's state.
      * 
      * Checks every 150ms if the character is dead, AFK (by checking the afkTimer), hurt, jumping, moving right or left, or standing still.

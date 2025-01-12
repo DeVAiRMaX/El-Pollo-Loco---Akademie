@@ -54,7 +54,6 @@ function init() {
  * Displays the victory screen and gba screen.
  */
 function showVictoryScreen() {
-
     ClearAllInterVals();
     gameFinish = true;
     world = null;
@@ -64,6 +63,7 @@ function showVictoryScreen() {
     document.getElementById('gbaScreen').style.display = 'flex';
     document.getElementById('victoryscreen').style.display = 'flex';
     document.getElementById('mobileButtonContainer').style.display = "none";
+    document.getElementById('mobileHeaderButtons').style.display = "flex";
 }
 
 /**
@@ -83,6 +83,7 @@ function showLoseScreen() {
     document.getElementById('gbaScreen').style.display = 'flex';
     document.getElementById('deathscreen').style.display = 'flex';
     document.getElementById('mobileButtonContainer').style.display = "none";
+    document.getElementById('mobileHeaderButtons').style.display = "flex";
 }
 
 /**
@@ -235,12 +236,17 @@ function startGame() {
  * Sets the game status to true, makes the mobile button container, GBA screen, and canvas visible, and initializes the game level and components.
  */
 function startMobileGame() {
+    resetSounds();
     gameStatus = true;
+    document.getElementById('settings').style.display = "none";
+    document.getElementById('victoryscreen').style.display = "none";
+    document.getElementById('deathscreen').style.display = "none";
     document.getElementById('mobileHeaderButtons').style.display = "none";
     document.getElementById('mobileButtonContainer').style.display = "flex";
     document.getElementById('gbaScreen').style.display = "flex";
     document.getElementById('canvas').style.display = "block";
     document.getElementById('impressumButton').style.display = "none";
+    ClearAllInterVals();
     initLevel();
     init();
 }
