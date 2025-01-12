@@ -217,7 +217,10 @@ function startGame() {
         return;
     }
     gameStatus = true;
+    let gbaScreen = document.getElementById('gbaScreen');
+    gbaScreen.style.height = "auto";
     document.getElementById('gbaScreen').style.display = "flex";
+    document.getElementById('settings').style.display = "none";
     document.getElementById('impressumContainer').style.display = "none";
     document.getElementById('canvas').style.display = "block";
     document.getElementById('mobileHeaderButtons').style.display = "flex";
@@ -264,13 +267,15 @@ function gameSettings() {
     } else {
         gameSetting = true;
         let mobileHeaderButtons = document.getElementById('mobileHeaderButtons');
+
         let gbaScreen = document.getElementById('gbaScreen');
+        gbaScreen.style.height = "330px";
+
         let settings = document.getElementById('settings');
         let canvas = document.getElementById('canvas');
         let impressum = document.getElementById('impressumContainer');
         mobileHeaderButtons.style.display = "none";
         gbaScreen.style.display = "flex";
-        gbaScreen.style.height = "330px";
         settings.style.display = "flex";
         impressum.style.display = "none";
         canvas.style.display = "none";
@@ -303,11 +308,11 @@ function makeFullscreen() {
     const canvas = document.getElementById('canvas');
     if (canvas.requestFullscreen) {
         canvas.requestFullscreen();
-    } else if (canvas.mozRequestFullScreen) { 
+    } else if (canvas.mozRequestFullScreen) {
         canvas.mozRequestFullScreen();
-    } else if (canvas.webkitRequestFullscreen) { 
+    } else if (canvas.webkitRequestFullscreen) {
         canvas.webkitRequestFullscreen();
-    } else if (canvas.msRequestFullscreen) { 
+    } else if (canvas.msRequestFullscreen) {
         canvas.msRequestFullscreen();
     }
 }
