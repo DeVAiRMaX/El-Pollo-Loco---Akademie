@@ -17,6 +17,7 @@ class World {
     jump_on_chicken = new Audio('audio/jump_on_chicken.mp3');
     endfight_audio = new Audio('audio/endfight.mp3');
     throw_audio = new Audio('audio/throw.mp3');
+    jumpAttack = false;
 
     /**
     * Initializes the world by setting up the canvas, setting up the keyboard and sounds, and starting the game loop.
@@ -56,6 +57,7 @@ class World {
     run() {
         setInterval(() => this.handleKeyboardActions(), 500);
         setInterval(() => this.handleCollisions(), 50);
+        setInterval(() => this.checkCollisions(), 50);
         if (this.gameisrunning) {
             this.game_music.loop = true;
             this.game_music.play();
@@ -90,7 +92,6 @@ class World {
      * level's state accordingly.
      */
     handleCollisions() {
-        this.checkCollisions();
         this.checkCoinCollision();
         this.checkJumpCollision();
     }
@@ -110,7 +111,6 @@ class World {
                     this.endfight_audio.loop = true;
                     this.endfight_audio.volume = 0.1;
                     this.endfight_audio.play();
-                    this.checkJumpCollision();  // Determine if the character is jumping on an enemy.
                     endboss.Endfight = true;
                 }
             });
@@ -129,6 +129,7 @@ class World {
             let enemy = this.level.enemies[i];
             if (this.isCharacterJumpingOnEnemy(enemy)) {
                 this.handleJumpOnEnemy(i, enemy);
+
                 return true;
             }
         }
@@ -158,15 +159,29 @@ class World {
             this.jump_on_chicken.volume = 0.1;
         }
         this.collisionsJumpAttack(index, this.character.y);
+        this.setJumpAttackTimeouts(index);
+    }
+
+    /**
+     * Sets two timeouts to run after the character jumps on an enemy. The first timeout,
+     * after 500ms, removes the enemy from the level. The second timeout, after 10ms,
+     * sets the jumpAttack flag to false. The jumpAttack flag is used to prevent the
+     * character from jumping on the same enemy multiple times.
+     */
+    setJumpAttackTimeouts(index) {
         setTimeout(() => {
             this.level.enemies.splice(index, 1);
         }, 500);
+        setTimeout(() => {
+            this.jumpAttack = false;
+        }, 10);
     }
 
     /**
      * Handles the character jumping on an enemy by calling the `jumpDemage` and `isHurt` methods on the enemy, and then calling the `jumpAgain` method on the character..
      */
     collisionsJumpAttack(index, characterY) {
+        this.jumpAttack = true;
         this.level.enemies[index].jumpDemage();
         this.level.enemies[index].isHurt();
         this.character.jumpAgain(characterY);
@@ -187,6 +202,7 @@ class World {
                 return;
             } else if (this.character.isColliding(enemy)) {
                 if (this.lastHitTime === undefined || Date.now() - this.lastHitTime >= 250) {
+                    if (this.jumpAttack) return;
                     this.character.hit();
                     this.lastHitTime = Date.now();
                     this.statusBar.setPercentage(this.character.energy);
@@ -340,9 +356,9 @@ class World {
         this.addToMap(this.bossBar);
     }
 
-     /**
-     * Requests the next animation frame for drawing.
-     */
+    /**
+    * Requests the next animation frame for drawing.
+    */
     requestNextFrame() {
         let updatesDrawMethod = this;
         requestAnimationFrame(function () {
@@ -375,10 +391,10 @@ class World {
         }
     }
 
-     /**
-     * Flips the image of a movable object for rendering.
-     * @param {Object} movableObject - The object to flip.
-     */
+    /**
+    * Flips the image of a movable object for rendering.
+    * @param {Object} movableObject - The object to flip.
+    */
     flipImage(movableObject) {
         this.ctx.save();
         this.ctx.translate(movableObject.width, 0);
