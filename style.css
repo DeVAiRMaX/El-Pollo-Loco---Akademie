@@ -4,6 +4,7 @@
 @import url("./css/rotatescreen.css");
 
 body {
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,6 +171,157 @@ body {
     z-index: 1;
   }
 }
+@media only screen and (max-width: 1100px) {
+  .gba {
+    width: 1000px;
+    display: flex;
+  }
+  .settings-button {
+    display: none;
+    right: 334px;
+    top: -190px;
+    font-size: 15px;
+    padding: 0 9px 6px 0;
+  }
+  .start-button {
+    display: none;
+    width: 110px;
+    right: 321px !important;
+    top: -273px !important;
+    font-size: 15px;
+    padding: 0 20px 7px 0;
+  }
+}
+
+@media only screen and (max-width: 1030px) {
+  .victoryimage {
+    top: 0 !important;
+  }
+  .deathimage {
+    top: 0 !important;
+  }
+  .impressumContainer {
+    position: relative;
+    top: auto !important;
+  }
+  .settings {
+    position: relative;
+    top: auto !important;
+  }
+  .reloadButton {
+    width: 50px;
+    height: 50px;
+  }
+  .menuButton {
+    width: 50px;
+    height: 50px;
+  }
+  .closecross {
+    top: 25px !important;
+    left: 180px !important;
+  }
+  .cross {
+    position: fixed;
+    top: 8px !important;
+    right: 8px;
+    left: unset !important;
+  }
+  .gba-Screen {
+    width: 420px;
+    bottom: 455px;
+    height: 280px !important;
+  }
+  .settings-button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    right: 334px;
+    top: -190px;
+    font-size: 15px;
+    padding: 0 9px 6px 0;
+  }
+  .start-button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    right: 321px;
+    top: -273px;
+    font-size: 15px;
+    padding: 0 20px 7px 0;
+  }
+  .gba {
+    width: 1000px;
+    display: flex;
+  }
+}
+@media only screen and (max-width: 1050px) {
+  canvas {
+    position: relative;
+    top: -74px;
+  }
+  .settings {
+    position: relative;
+    top: -74px;
+  }
+  .impressumContainer {
+    position: relative;
+    top: -74px;
+  }
+  .reloadButton {
+    width: 50px;
+    height: 50px;
+  }
+  .menuButton {
+    width: 50px;
+    height: 50px;
+  }
+  .victoryimage {
+    top: auto;
+  }
+  .deathimage {
+    top: auto;
+  }
+  .closecross {
+    top: 25px !important;
+    left: 180px !important;
+  }
+  .cross {
+    position: fixed;
+    top: 8px !important;
+    right: 8px;
+    left: unset !important;
+  }
+  .gba-Screen {
+    width: 420px;
+    bottom: 455px;
+    height: 280px !important;
+  }
+  .settings-button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    right: 334px;
+    top: -190px;
+    font-size: 15px;
+    padding: 0 9px 6px 0;
+  }
+  .start-button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    right: 321px;
+    top: -273px;
+    font-size: 15px;
+    padding: 0 20px 7px 0;
+  }
+  .gba {
+    width: 1000px;
+    display: flex;
+  }
+}
+
 @media only screen and (max-height: 770px) {
   .closecross {
     top: 25px !important;
@@ -182,9 +334,9 @@ body {
     left: unset !important;
   }
   .gba-Screen {
-    width: 427px;
-    bottom: 541px;
-    height: 286px !important;
+    width: 420px;
+    bottom: 531px;
+    height: 280px !important;
   }
   canvas {
     width: 100vw;
@@ -195,25 +347,26 @@ body {
     z-index: 9;
   }
   .settings-button {
-    /* right: 342px; */
-    /* top: -194px; */
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    right: 334px;
+    top: -190px;
     font-size: 15px;
     padding: 0 9px 6px 0;
   }
   .start-button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
     width: 110px;
-    /* right: 332px; */
-    /* top: -278px; */
+    right: 321px;
+    top: -273px;
     font-size: 15px;
     padding: 0 20px 7px 0;
   }
-  /* body {
-    margin: 0;
-    align-items: flex-start;
-  } */
-
   .gba {
-    /* width: 100vw; */
+    width: 1000px;
     display: flex;
   }
   .mobile-Startscreen {
@@ -317,5 +470,14 @@ body {
   }
   .gba-Screen {
     position: unset;
+  }
+  .start-button {
+    display: none !important;
+  }
+  .settings-button {
+    display: none !important;
+  }
+  .impressum-button {
+    display: none;
   }
 }
